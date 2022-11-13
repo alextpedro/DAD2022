@@ -4,6 +4,7 @@ import App from './App.vue';
 import router from './router'; //go to this file to define routes
 
 import './assets/main.css';
+import './assets/bootstrap.min.css';
 
 const app = createApp(App);
 const pinia = createPinia();
