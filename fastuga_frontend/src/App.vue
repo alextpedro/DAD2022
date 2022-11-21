@@ -4,7 +4,7 @@ import { useRouter, RouterLink, RouterView } from "vue-router"
 import { useUserStore } from "./stores/user.js"
 
 const userStore = useUserStore()
-const router = useRouter() 
+const router = useRouter()
 const toast = inject("toast")
 
 const buttonSidebarExpand = ref(null)
@@ -19,7 +19,7 @@ const logout = async () => {
   if (await userStore.logout()) {
     toast.success("User has logged out of the application.")
     clickMenuOption()
-    router.push({name: 'home'})
+    router.push({ name: 'home' })
   } else {
     toast.error("There was a problem logging out of the application!")
   }
@@ -32,7 +32,7 @@ const logout = async () => {
     <div class="container-fluid">
       <router-link class="navbar-brand col-md-3 col-lg-2 me-0 px-3" :to="{ name: 'home' }" @click="clickMenuOption">
         <img src="@/assets/logo.svg" alt="" width="30" height="24" class="d-inline-block align-text-top" />
-        App name
+        FasTuga
       </router-link>
       <button id="buttonSidebarExpandId" ref="buttonSidebarExpand" class="navbar-toggler" type="button"
         data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
@@ -161,7 +161,7 @@ const logout = async () => {
             </li> -->
           </ul>
 
-          
+
         </div>
       </nav>
 
@@ -180,6 +180,7 @@ const logout = async () => {
   width: 3.3rem;
   height: 3.3rem;
 }
+
 .avatar-text {
   line-height: 2.2rem;
   margin: 1rem 0.5rem -2rem 0;
