@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, inject } from 'vue'
 import { useRouter, RouterLink, RouterView } from "vue-router"
 import { useUserStore } from "./stores/user.js"
 
