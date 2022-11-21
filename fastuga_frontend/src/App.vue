@@ -14,6 +14,17 @@ const clickMenuOption = () => {
     buttonSidebarExpand.value.click()
   }
 }
+
+const logout = async () => {
+  if (await userStore.logout()) {
+    toast.success("User has logged out of the application.")
+    clickMenuOption()
+    router.push({name: 'home'})
+  } else {
+    toast.error("There was a problem logging out of the application!")
+  }
+}
+
 </script>
 
 <template>
