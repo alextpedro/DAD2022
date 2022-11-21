@@ -4,7 +4,7 @@
 	import { useUserStore } from '../../stores/user.js'
 
 	const router = useRouter()  
-	const toast = inject('toast')
+	// const toast = inject('toast')
 
 	const credentials = ref({
 		username: '',
@@ -15,21 +15,17 @@
 
 	const emit = defineEmits(['login'])
 
-	const login = async () => {
-		if (await userStore.login(credentials.value)) {
-			toast.success('User ' + userStore.user.name + ' has entered the application.')
-			emit('login')
-			router.back()
-		} else {
-			credentials.value.password = ''
-			toast.error('User credentials are invalid!')
-		}
-	}
+	// const login = async () => {
+	// 	if (await userStore.login(credentials.value)) {
+	// 		toast.success('User ' + userStore.user.name + ' has entered the application.')
+	// 		emit('login')
+	// 		router.back()
+	// 	} else {
+	// 		credentials.value.password = ''
+	// 		toast.error('User credentials are invalid!')
+	// 	}
+	// }
 </script>
-
-<template>
-
-
 
 <template>
   <form
@@ -77,5 +73,4 @@
       >Login</button>
     </div>
   </form>
-</template>
 </template>
