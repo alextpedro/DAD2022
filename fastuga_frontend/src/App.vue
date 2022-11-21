@@ -5,6 +5,7 @@ import { useUserStore } from "./stores/user.js"
 
 const userStore = useUserStore()
 const router = useRouter() 
+const toast = inject("toast")
 
 const buttonSidebarExpand = ref(null)
 
