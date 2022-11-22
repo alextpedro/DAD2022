@@ -7,7 +7,39 @@
 //     }
 // })
 
-const items = [1, 2, 3, 4];
+// Placeholder for development purposes
+const items = [
+    {
+        id: 1,
+        name: 'My amazing item',
+        type: 'Hot dish?',
+        description: 'The hottest dish to ever dish.',
+        photo_url: 'https://via.placeholder.com/150',
+        price: 350000
+    }, {
+        id: 2,
+        name: 'Salad',
+        type: 'Hot dish?',
+        description: 'The hottest dish to ever dish.',
+        photo_url: 'https://via.placeholder.com/150',
+        price: 350000
+    }, 
+    {
+        id: 3,
+        name: 'My amazing item',
+        type: 'Hot dish?',
+        description: 'The hottest dish to ever dish.',
+        photo_url: 'https://via.placeholder.com/150',
+        price: 350000
+    }, 
+    {
+        id: 4,
+        name: 'My amazing item',
+        type: 'Hot dish?',
+        description: 'The hottest dish to ever dish.',
+        photo_url: 'https://via.placeholder.com/150',
+        price: 350000
+    }];
 
 </script>
 
@@ -24,27 +56,26 @@ const items = [1, 2, 3, 4];
             </tr>
         </thead>
         <tbody>
-            <!-- For each item... -->
             <tr v-for="item in items">
                 <td>
-                    <img src="https://via.placeholder.com/150" />
+                    <img :src="item.photo_url" />
                 </td>
                 <td>
-                    <span>My amazing item</span>
+                    <span>{{item.name}}</span>
                 </td>
                 <td>
                     <span>
-                        Hot dish?
+                        {{item.type}}
                     </span>
                 </td>
                 <td>
                     <span>
-                        The hottest dish to ever dish.
+                        {{item.description}}
                     </span>
                 </td>
                 <td>
                     <span>
-                        350000€
+                        {{item.price}}€
                     </span>
                 </td>
                 <td>
