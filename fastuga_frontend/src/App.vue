@@ -43,6 +43,20 @@ const logout = async () => {
       <div class="collapse navbar-collapse justify-content-end">
         <ul class="navbar-nav">
           <li class="nav-item" v-show="!userStore.user">
+            <router-link class="nav-link" :class="{ active: $route.name === 'plataformstatistics' }" :to="{ name: 'plataformstatistics' }"
+              @click="clickMenuOption">
+              <i class="bi bi-box-arrow-in-right"></i>
+              Statistics
+            </router-link>
+          </li>
+          <li class="nav-item" v-show="!userStore.user">
+            <router-link class="nav-link" :class="{ active: $route.name === 'listusers' }" :to="{ name: 'listusers' }"
+              @click="clickMenuOption">
+              <i class="bi bi-box-arrow-in-right"></i>
+              Users
+            </router-link>
+          </li>
+          <li class="nav-item" v-show="!userStore.user">
             <a class="nav-link" href="#">
               <i class="bi bi-person-check-fill"></i>
               Register
@@ -53,13 +67,6 @@ const logout = async () => {
               @click="clickMenuOption">
               <i class="bi bi-box-arrow-in-right"></i>
               Login
-            </router-link>
-          </li>
-          <li class="nav-item" v-show="!userStore.user">
-            <router-link class="nav-link" :class="{ active: $route.name === 'listusers' }" :to="{ name: 'listusers' }"
-              @click="clickMenuOption">
-              <i class="bi bi-box-arrow-in-right"></i>
-              Users
             </router-link>
           </li>
           <li class="nav-item dropdown" v-show="userStore.user">

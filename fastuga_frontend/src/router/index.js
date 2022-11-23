@@ -5,6 +5,7 @@ import HomeView from '../views/HomeView.vue';
 import Menu from '../components/menu/Menu.vue';
 
 import ListUsers from '../components/users/ListUsersEx.vue';
+import PlataformStatisticsEx from '../components/statistics/PlataformStatisticsEx.vue';
 
 //Vue router routes
 const routes = [
@@ -32,6 +33,11 @@ const routes = [
 		path: '/listusers',
 		name: 'listusers',
 		component: ListUsers
+	},
+	{
+		path: '/plataformstatistics',
+		name: 'plataformstatistics',
+		component: PlataformStatisticsEx
 	},
 ];
 
