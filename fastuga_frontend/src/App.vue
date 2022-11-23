@@ -55,6 +55,13 @@ const logout = async () => {
               Login
             </router-link>
           </li>
+          <li class="nav-item" v-show="!userStore.user">
+            <router-link class="nav-link" :class="{ active: $route.name === 'listusers' }" :to="{ name: 'listusers' }"
+              @click="clickMenuOption">
+              <i class="bi bi-box-arrow-in-right"></i>
+              Users
+            </router-link>
+          </li>
           <li class="nav-item dropdown" v-show="userStore.user">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
               data-bs-toggle="dropdown" aria-expanded="false">
@@ -63,9 +70,8 @@ const logout = async () => {
             </a>
             <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
               <li>
-                <router-link class="dropdown-item"
-                  :class="{ active: $route.name == 'Menu' }"
-                  :to="{ name: 'Menu' }" @click="clickMenuOption">
+                <router-link class="dropdown-item" :class="{ active: $route.name == 'Menu' }" :to="{ name: 'Menu' }"
+                  @click="clickMenuOption">
                   <i class="bi bi-person-square"></i>Menu
                 </router-link>
               </li>

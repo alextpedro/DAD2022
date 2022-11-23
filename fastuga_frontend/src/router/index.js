@@ -1,7 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Login from '../components/auth/Login.vue'
-import HomeView from '../views/HomeView.vue'
-import Menu from '../components/menu/Menu.vue'
+import Login from '../components/auth/Login.vue';
+import Register from '../components/auth/Register.vue';
+import HomeView from '../views/HomeView.vue';
+import Menu from '../components/menu/Menu.vue';
+
+import ListUsers from '../components/users/ListUsersEx.vue';
 
 //Vue router routes
 const routes = [
@@ -9,16 +12,26 @@ const routes = [
 		path: '/',
 		name: 'home',
 		component: HomeView
-	  },
+	},
 	{
 		path: '/login',
 		name: 'Login',
 		component: Login
 	},
+    {
+		path: '/register',
+		name: 'Register',
+		component: Register
+	},
 	{
 		path: '/menu',
 		name: 'Menu',
 		component: Menu
+	},
+	{
+		path: '/listusers',
+		name: 'listusers',
+		component: ListUsers
 	},
 ];
 
