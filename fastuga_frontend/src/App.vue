@@ -28,63 +28,86 @@ const logout = async () => {
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top flex-md-nowrap p-0 shadow">
+  <nav
+    class="navbar navbar-expand-md navbar-dark bg-dark sticky-top flex-md-nowrap p-0 shadow"
+  >
     <div class="container-fluid">
-      <router-link class="navbar-brand col-md-3 col-lg-2 me-0 px-3" :to="{ name: 'home' }" @click="clickMenuOption">
-        <img src="@/assets/logo.svg" alt="" width="30" height="24" class="d-inline-block align-text-top" />
-        FasTuga
-      </router-link>
-      <button id="buttonSidebarExpandId" ref="buttonSidebarExpand" class="navbar-toggler" type="button"
-        data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
-        aria-label="Toggle navigation">
+      <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">
+        <img
+          src="@/assets/logo.svg"
+          alt=""
+          width="30"
+          height="24"
+          class="d-inline-block align-text-top"
+        />
+        App name
+      </a>
+      <button
+        id="buttonSidebarExpandId"
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#sidebarMenu"
+        aria-controls="sidebarMenu"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
         <span class="navbar-toggler-icon"></span>
       </button>
 
       <div class="collapse navbar-collapse justify-content-end">
         <ul class="navbar-nav">
-          <li class="nav-item" v-show="!userStore.user">
-            <router-link class="nav-link" :class="{ active: $route.name === 'plataformstatistics' }" :to="{ name: 'plataformstatistics' }"
-              @click="clickMenuOption">
-              <i class="bi bi-box-arrow-in-right"></i>
-              Statistics
-            </router-link>
-          </li>
-          <li class="nav-item" v-show="!userStore.user">
-            <router-link class="nav-link" :class="{ active: $route.name === 'listusers' }" :to="{ name: 'listusers' }"
-              @click="clickMenuOption">
-              <i class="bi bi-box-arrow-in-right"></i>
-              Users
-            </router-link>
-          </li>
-          <li class="nav-item" v-show="!userStore.user">
-            <a class="nav-link" href="#">
-              <i class="bi bi-person-check-fill"></i>
+          <li class="nav-item">
+            <a class="nav-link" href="#"
+              ><i class="bi bi-person-check-fill"></i>
               Register
             </a>
           </li>
-          <li class="nav-item" v-show="!userStore.user">
-            <router-link class="nav-link" :class="{ active: $route.name === 'Login' }" :to="{ name: 'Login' }"
-              @click="clickMenuOption">
+          <li class="nav-item">
+            <router-link
+              class="nav-link"
+              :class="{ active: $route.name === 'Login' }"
+              :to="{ name: 'Login' }"
+            >
               <i class="bi bi-box-arrow-in-right"></i>
               Login
             </router-link>
           </li>
-          <li class="nav-item dropdown" v-show="userStore.user">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-              data-bs-toggle="dropdown" aria-expanded="false">
-              <img :src="userStore.userPhotoUrl" class="rounded-circle z-depth-0 avatar-img" alt="avatar image" />
-              <span class="avatar-text">{{ userStore.user?.name ?? "Anonymous" }}</span>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdownMenuLink"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <img
+                src="@/assets/avatar-exemplo-1.jpg"
+                class="rounded-circle z-depth-0 avatar-img"
+                alt="avatar image"
+              />
+              <span class="avatar-text">User Name</span>
             </a>
-            <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+            <ul
+              class="dropdown-menu dropdown-menu-dark dropdown-menu-end"
+              aria-labelledby="navbarDropdownMenuLink"
+            >
               <li>
-                <router-link class="dropdown-item" :class="{ active: $route.name == 'Menu' }" :to="{ name: 'Menu' }"
-                  @click="clickMenuOption">
-                  <i class="bi bi-person-square"></i>Menu
-                </router-link>
+                <!-- <router-link
+                  class="dropdown-item"
+                  :class="{ active: $route.name == 'User' && $route.params.id == 1 }"
+                  :to="{ name: 'User', params: { id: 1 } }"
+                >
+                  <i class="bi bi-person-square"></i>Profile
+                </router-link> -->
               </li>
               <li>
-                <!-- <router-link class="dropdown-item" :class="{ active: $route.name === 'ChangePassword' }"
-                  :to="{ name: 'ChangePassword' }" @click="clickMenuOption">
+                <!-- <router-link
+                  class="dropdown-item"
+                  :class="{ active: $route.name === 'ChangePassword' }"
+                  :to="{ name: 'ChangePassword' }"
+                >
                   <i class="bi bi-key-fill"></i>
                   Change password
                 </router-link> -->
@@ -93,9 +116,9 @@ const logout = async () => {
                 <hr class="dropdown-divider" />
               </li>
               <li>
-                <a class="dropdown-item" @click.prevent="logout">
-                  <i class="bi bi-arrow-right"></i>Logout
-                </a>
+                <a class="dropdown-item" href="#"
+                  ><i class="bi bi-arrow-right"></i>Logout</a
+                >
               </li>
             </ul>
           </li>
@@ -104,77 +127,167 @@ const logout = async () => {
     </div>
   </nav>
 
+  <!-- SIDEBAR -->
   <div class="container-fluid">
     <div class="row">
-      <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <nav
+        id="sidebarMenu"
+        class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse"
+      >
         <div class="position-sticky pt-3">
-          <ul class="nav flex-column" v-if="userStore.user">
-            <!-- <router-link class="nav-link" :class="{ active: $route.name === 'Dashboard' }" :to="{ name: 'Dashboard' }"
-              @click="clickMenuOption">
-              <i class="bi bi-house"></i>
-              Dashboard
-            </router-link> -->
+          <ul class="nav flex-column">
             <li class="nav-item">
-              <!-- <router-link class="nav-link" :class="{ active: $route.name === 'CurrentTasks' }"
-                :to="{ name: 'CurrentTasks' }" @click="clickMenuOption">
+              <router-link
+                class="nav-link"
+                :class="{ active: $route.name === 'Menu' }"
+                :to="{ name: 'Menu' }"
+              >
+                <i class="bi bi-book"></i>
+                Menu
+              </router-link>
+            </li>
+            <li class="nav-item">
+              <!-- <router-link
+                class="nav-link"
+                :class="{ active: $route.name === 'CurrentTasks' }"
+                :to="{ name: 'CurrentTasks' }"
+              >
                 <i class="bi bi-list-stars"></i>
                 Current Tasks
               </router-link> -->
             </li>
             <li class="nav-item d-flex justify-content-between align-items-center pe-3">
-              <!-- <router-link class="nav-link w-100 me-3" :class="{ active: $route.name === 'Tasks' }"
-                :to="{ name: 'Tasks' }" @click="clickMenuOption">
+              <!-- <router-link
+                class="nav-link w-100 me-3"
+                :class="{ active: $route.name === 'Tasks' }"
+                :to="{ name: 'Tasks' }"
+              >
                 <i class="bi bi-list-check"></i>
                 Tasks
               </router-link>
-              <router-link class="link-secondary" :to="{ name: 'NewTask' }" aria-label="Add a new task"
-                @click="clickMenuOption">
+              <router-link class="link-secondary" :to="{ name: 'NewTask'}" aria-label="Add a new task">
                 <i class="bi bi-xs bi-plus-circle"></i>
               </router-link> -->
             </li>
-            <!-- <li class="nav-item">
-              <router-link class="nav-link" :class="{ active: $route.name === 'Projects' }" :to="{ name: 'Projects' }"
-                @click="clickMenuOption">
+            <li class="nav-item">
+              <!-- <router-link
+                class="nav-link"
+                :class="{ active: $route.name === 'Projects' }"
+                :to="{ name: 'Projects' }"
+              >
                 <i class="bi bi-files"></i>
                 Projects
-              </router-link>
-            </li> -->
+              </router-link> -->
+            </li>
             <li class="nav-item">
-              <!-- <router-link class="nav-link" :class="{ active: $route.name === 'Users' }" :to="{ name: 'Users' }"
-                @click="clickMenuOption">
+              <!-- <router-link
+                class="nav-link"
+                :class="{ active: $route.name === 'Users' }"
+                :to="{ name: 'Users' }"
+              >
                 <i class="bi bi-people"></i>
                 Team Members
               </router-link> -->
             </li>
-            <li class="nav-item" v-show="userStore.user?.type == 'A'">
-              <!-- <router-link class="nav-link" :class="{ active: $route.name === 'Reports' }" :to="{ name: 'Reports' }"
-                @click="clickMenuOption">
+            <li class="nav-item">
+              <a class="nav-link" href="#">
                 <i class="bi bi-bar-chart-line"></i>
                 Reports
+              </a>
+            </li>
+          </ul>
+
+          <!-- API-DEPENDENT SIDEBAR -->
+          <h6
+            class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
+          >
+            <span>My Projects</span>
+            <!-- <router-link class="link-secondary" :to="{ name: 'NewProject'}" aria-label="Add a new project">
+              <i class="bi bi-xs bi-plus-circle"></i>
+            </router-link> -->
+          </h6>
+          <ul class="nav flex-column mb-2">          
+            <li class="nav-item" v-for="prj in workInProgressProjects" :key="prj.id">
+              <!-- <router-link class="nav-link w-100 me-3" 
+                :class="{active: $route.name == 'ProjectTasks' && $route.params.id == prj.id}"
+                :to="{ name: 'ProjectTasks', params: { id: prj.id }}">
+                <i class="bi bi-file-ruled"></i>
+                {{ prj.name}}
               </router-link> -->
             </li>
           </ul>
 
-          <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
-            v-if="userStore.user">
-            <span>My Projects</span>
-            <!-- <router-link class="link-secondary" :to="{ name: 'NewProject' }" aria-label="Add a new project"
-              @click="clickMenuOption">
-              <i class="bi bi-xs bi-plus-circle"></i>
-            </router-link> -->
-          </h6>
-          <ul class="nav flex-column mb-2">
-            <!-- <li class="nav-item" v-for="prj in projectsStore.myInprogressProjects" :key="prj.id">
-              <router-link class="nav-link w-100 me-3" :class="{
-                active: $route.name == 'ProjectTasks' && $route.params.id == prj.id,
-              }" :to="{ name: 'ProjectTasks', params: { id: prj.id } }" @click="clickMenuOption">
-                <i class="bi bi-file-ruled"></i>
-                {{ prj.name }}
-              </router-link>
-            </li> -->
-          </ul>
-
-
+          <div class="d-block d-md-none">
+            <h6
+              class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
+            >
+              <span>User</span>
+            </h6>
+            <ul class="nav flex-column mb-2">
+              <li class="nav-item">
+                <a class="nav-link" href="#"
+                  ><i class="bi bi-person-check-fill"></i>
+                  Register
+                </a>
+              </li>
+              <li class="nav-item">
+                <!-- <router-link
+                  class="nav-link"
+                  :class="{ active: $route.name === 'Login' }"
+                  :to="{ name: 'Login' }"
+                >
+                  <i class="bi bi-box-arrow-in-right"></i>
+                  Login
+                </router-link> -->
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdownMenuLink2"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <img
+                    src="@/assets/avatar-exemplo-1.jpg"
+                    class="rounded-circle z-depth-0 avatar-img"
+                    alt="avatar image"
+                  />
+                  <span class="avatar-text">User Name</span>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
+                  <li>
+                    <!-- <router-link
+                      class="dropdown-item"
+                      :class="{ active: $route.name == 'User' && $route.params.id == 1 }"
+                      :to="{ name: 'User', params: { id: 1 } }"
+                    >
+                      <i class="bi bi-person-square"></i>Profile
+                    </router-link> -->
+                  </li>
+                  <li>
+                    <!-- <router-link
+                      class="dropdown-item"
+                      :class="{ active: $route.name === 'ChangePassword' }"
+                      :to="{ name: 'ChangePassword' }"
+                    >
+                      <i class="bi bi-key-fill"></i>
+                      Change password
+                    </router-link> -->
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">
+                      <i class="bi bi-arrow-right"></i>Logout
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
         </div>
       </nav>
 
