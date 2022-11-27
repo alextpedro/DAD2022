@@ -7,8 +7,7 @@
         "eslint:recommended",
         "plugin:vue/vue3-essential"
     ],
-    "overrides": [
-    ],
+    "overrides": [],
     "parserOptions": {
         "ecmaVersion": "latest",
         "sourceType": "module"
@@ -28,6 +27,12 @@
         "semi": [
             "error",
             "always"
+        ],
+        "vue/multi-word-component-names": [
+            "off"
+        ],
+        "no-unused-vars": [
+            "off"
         ]
     }
 }
