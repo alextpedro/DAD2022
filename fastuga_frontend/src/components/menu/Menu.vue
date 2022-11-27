@@ -7,6 +7,13 @@
 //     }
 // })
 
+const submitOrder = () => {
+    console.log("TODO - Functionality not implemented.");
+    // Bundle all selected menu items
+    // Wait for payment?
+    // Send order (and hot dishes to chefs?)
+}
+
 // Placeholder for development purposes
 const items = [
     {
@@ -23,7 +30,7 @@ const items = [
         description: 'The hottest dish to ever dish.',
         photo_url: 'https://via.placeholder.com/150',
         price: 350000
-    }, 
+    },
     {
         id: 3,
         name: 'My amazing item',
@@ -31,7 +38,7 @@ const items = [
         description: 'The hottest dish to ever dish.',
         photo_url: 'https://via.placeholder.com/150',
         price: 350000
-    }, 
+    },
     {
         id: 4,
         name: 'My amazing item',
@@ -61,21 +68,21 @@ const items = [
                     <img :src="item.photo_url" />
                 </td>
                 <td>
-                    <span>{{item.name}}</span>
+                    <span>{{ item.name }}</span>
                 </td>
                 <td>
                     <span>
-                        {{item.type}}
+                        {{ item.type }}
                     </span>
                 </td>
                 <td>
                     <span>
-                        {{item.description}}
+                        {{ item.description }}
                     </span>
                 </td>
                 <td>
                     <span>
-                        {{item.price}}€
+                        {{ item.price }}€
                     </span>
                 </td>
                 <td>
@@ -84,6 +91,16 @@ const items = [
             </tr>
         </tbody>
     </table>
+
+    <div class="btn-group float-end" role="group">
+        <button type="button" class="btn btn-danger">
+            <router-link class="nav-link" :to="{ name: 'Home' }">
+                Cancel
+            </router-link>
+        </button>
+        <button type="button" class="btn btn-success" @click="submitOrder">Proceed to Checkout</button>
+    </div>
+
 </template>
   
 <style scoped>

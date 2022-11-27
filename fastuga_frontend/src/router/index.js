@@ -11,7 +11,7 @@ import PlataformStatisticsEx from '../components/statistics/PlataformStatisticsE
 const routes = [
 	{
 		path: '/',
-		name: 'home',
+		name: 'Home',
 		component: HomeView
 	},
 	{
@@ -36,7 +36,7 @@ const routes = [
 	},
 	{
 		path: '/plataformstatistics',
-		name: 'plataformstatistics',
+		name: 'Plataformstatistics',
 		component: PlataformStatisticsEx
 	},
 ];
