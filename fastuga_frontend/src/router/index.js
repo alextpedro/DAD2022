@@ -3,6 +3,7 @@ import Login from '../components/auth/Login.vue';
 import Register from '../components/auth/Register.vue';
 import HomeView from '../views/HomeView.vue';
 import Menu from '../components/menu/Menu.vue';
+import Order from '../components/menu/Order.vue';
 
 import ListUsers from '../components/users/ListUsersEx.vue';
 import PlataformStatisticsEx from '../components/statistics/PlataformStatisticsEx.vue';
@@ -19,7 +20,7 @@ const routes = [
 		name: 'Login',
 		component: Login
 	},
-    {
+	{
 		path: '/register',
 		name: 'Register',
 		component: Register
@@ -28,6 +29,11 @@ const routes = [
 		path: '/menu',
 		name: 'Menu',
 		component: Menu
+	},
+	{
+		path: '/order',
+		name: 'Order',
+		component: Order
 	},
 	{
 		path: '/listusers',

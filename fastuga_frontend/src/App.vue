@@ -1,29 +1,29 @@
 <script setup>
-import { ref, inject } from 'vue'
-import { useRouter, RouterLink, RouterView } from "vue-router"
-import { useUserStore } from "./stores/user.js"
+import { ref, inject } from 'vue';
+import { useRouter, RouterLink, RouterView } from 'vue-router';
+import { useUserStore } from './stores/user.js';
 
-const userStore = useUserStore()
-const router = useRouter()
-const toast = inject("toast")
+const userStore = useUserStore();
+const router = useRouter();
+const toast = inject('toast');
 
-const buttonSidebarExpand = ref(null)
+const buttonSidebarExpand = ref(null);
 
 const clickMenuOption = () => {
-  if (window.getComputedStyle(buttonSidebarExpand.value).display !== "none") {
-    buttonSidebarExpand.value.click()
-  }
-}
+	if (window.getComputedStyle(buttonSidebarExpand.value).display !== 'none') {
+		buttonSidebarExpand.value.click();
+	}
+};
 
 const logout = async () => {
-  if (await userStore.logout()) {
-    toast.success("User has logged out of the application.")
-    clickMenuOption()
-    router.push({ name: 'home' })
-  } else {
-    toast.error("There was a problem logging out of the application!")
-  }
-}
+	if (await userStore.logout()) {
+		toast.success('User has logged out of the application.');
+		clickMenuOption();
+		router.push({ name: 'home' });
+	} else {
+		toast.error('There was a problem logging out of the application!');
+	}
+};
 
 </script>
 
