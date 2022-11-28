@@ -1,4 +1,4 @@
-<script>
+<script setup>
 // Placeholder for development purposes
 const order = [
 	{
@@ -32,6 +32,10 @@ const order = [
 		photo_url: 'https://via.placeholder.com/150',
 		price: 350000
 	}];
+
+const removeItemFromOrder = () => {
+	console.log('TODO - Functionality not implemented.');
+};
 </script>
 
 <template>
@@ -67,7 +71,9 @@ const order = [
 					<input type="number" value="1" />
 				</td>
 				<td>
-					<input type="checkbox" value="Add to Order" />
+					<button type="button" class="btn btn-danger" @click="removeItemFromOrder">
+						<i class="bi bi-trash"></i>
+					</button>
 				</td>
 			</tr>
 		</tbody>
