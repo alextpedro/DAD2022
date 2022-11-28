@@ -1,4 +1,5 @@
 <script setup>
+import { useRouter } from 'vue-router';
 // A menu has items 
 // const props = defineProps({
 //     items: {
@@ -6,9 +7,11 @@
 //         default: () => [],
 //     }
 // })
+const router = useRouter();
 
 const submitOrder = () => {
 	console.log('TODO - Functionality not implemented.');
+	router.push('/order');
 	// Bundle all selected menu items
 	// Wait for payment?
 	// Send order (and hot dishes to chefs?)
