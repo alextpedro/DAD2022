@@ -78,4 +78,12 @@ const removeItemFromOrder = () => {
 			</tr>
 		</tbody>
 	</table>
+	<div class="btn-group float-end" role="group">
+		<button class="btn btn-danger">
+			<router-link class="nav-link" :to="{ name: 'Menu' }">
+				Cancel
+			</router-link>
+		</button>
+		<button class="btn btn-success">Complete Order</button>
+	</div>
 </template>
