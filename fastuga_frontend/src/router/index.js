@@ -1,12 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Login from '../components/auth/Login.vue';
-import Register from '../components/auth/Register.vue';
-import HomeView from '../views/HomeView.vue';
-import Menu from '../components/menu/Menu.vue';
-import Order from '../components/menu/Order.vue';
+import Login from '@/components/auth/Login.vue';
+import Register from '@/components/auth/Register.vue';
+import HomeView from '@/views/HomeView.vue';
+import Menu from '@/components/menu/Menu.vue';
+import Order from '@/components/menu/Order.vue';
+import Item from '@/components/menu/Item.vue';
 
-import ListUsers from '../components/users/ListUsersEx.vue';
-import PlataformStatisticsEx from '../components/statistics/PlataformStatisticsEx.vue';
+import ListUsers from '@/components/users/ListUsersEx.vue';
+import PlataformStatisticsEx from '@/components/statistics/PlataformStatisticsEx.vue';
 
 //Vue router routes
 const routes = [
@@ -44,6 +45,11 @@ const routes = [
 		path: '/plataformstatistics',
 		name: 'Plataformstatistics',
 		component: PlataformStatisticsEx
+	},
+	{
+		path: '/itemEdit',
+		name: 'EditItem',
+		component: Item
 	},
 ];
 
