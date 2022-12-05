@@ -7,7 +7,6 @@ const saveItem = () => {
 
 <template>
 	<form class="row g-3 needs-validation" novalidate @submit.prevent="save">
-		<!-- Photo url or upload? -->
 		<div class="form-group">
 			<img src="https://via.placeholder.com/150" />
 			<input type="file" accept="image/png, image/jpeg" />
