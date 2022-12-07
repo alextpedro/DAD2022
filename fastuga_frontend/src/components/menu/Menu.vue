@@ -1,5 +1,6 @@
 <script setup>
 import { useRouter } from 'vue-router';
+import { inject, onMounted, ref } from 'vue';
 // A menu has items 
 // const props = defineProps({
 //     items: {
@@ -8,6 +9,9 @@ import { useRouter } from 'vue-router';
 //     }
 // })
 const router = useRouter();
+const axios = inject('axios');
+
+const items = ref([]);
 
 const submitOrder = () => {
 	console.log('TODO - Functionality not implemented.');
@@ -17,40 +21,19 @@ const submitOrder = () => {
 	// Send order (and hot dishes to chefs?)
 };
 
-// Placeholder for development purposes
-const items = [
-	{
-		id: 1,
-		name: 'My amazing item',
-		type: 'Hot dish?',
-		description: 'The hottest dish to ever dish.',
-		photo_url: 'https://via.placeholder.com/150',
-		price: 350000
-	}, {
-		id: 2,
-		name: 'Salad',
-		type: 'Hot dish?',
-		description: 'The hottest dish to ever dish.',
-		photo_url: 'https://via.placeholder.com/150',
-		price: 350000
-	},
-	{
-		id: 3,
-		name: 'My amazing item',
-		type: 'Hot dish?',
-		description: 'The hottest dish to ever dish.',
-		photo_url: 'https://via.placeholder.com/150',
-		price: 350000
-	},
-	{
-		id: 4,
-		name: 'My amazing item',
-		type: 'Hot dish?',
-		description: 'The hottest dish to ever dish.',
-		photo_url: 'https://via.placeholder.com/150',
-		price: 350000
-	}];
+const loadItems = () => {
+	axios.get('products')
+		.then((response) => {
+			items.value = response.data;
+		})
+		.catch((error) => {
+			console.log(error);
+		});
+};
 
+onMounted(() => {
+	loadItems();
+});
 </script>
 
 <template>
@@ -68,7 +51,7 @@ const items = [
 		<tbody>
 			<tr v-for="item in items" :key="item.id">
 				<td>
-					<img :src="item.photo_url" />
+					<img :src="'http://127.0.0.1:8000/' + item.photo_url" />
 				</td>
 				<td>
 					<span>{{ item.name }}</span>
