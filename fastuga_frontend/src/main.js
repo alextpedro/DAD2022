@@ -18,6 +18,7 @@ const serverBaseUrl = 'http://127.0.0.1:8000';
 app.provide('axios', axios.create({
 	baseURL: serverBaseUrl + '/api',
 	headers: {
+		'Access-Control-Allow-Origin': '*',
 		'Content-type': 'application/json',
 	},
 }));
