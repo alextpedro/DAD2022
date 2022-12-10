@@ -86,7 +86,9 @@ const logout = async () => {
 								<hr class="dropdown-divider" />
 							</li>
 							<li>
-								<a class="dropdown-item" href="#"><i class="bi bi-arrow-right"></i>Logout</a>
+								<a class="dropdown-item" @click.prevent="logout">
+									<i class="bi bi-arrow-right"></i>Logout
+								</a>
 							</li>
 						</ul>
 					</li>
@@ -230,7 +232,7 @@ const logout = async () => {
 										<hr class="dropdown-divider" />
 									</li>
 									<li>
-										<a class="dropdown-item" href="#">
+										<a class="dropdown-item" @click.prevent="logout">
 											<i class="bi bi-arrow-right"></i>Logout
 										</a>
 									</li>

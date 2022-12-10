@@ -1,30 +1,34 @@
 <script setup>
-	import { ref, inject } from 'vue'
-	import { useRouter } from 'vue-router'  
-	import { useUserStore } from '../../stores/user.js'
+import { ref, inject } from 'vue';
+import { useRouter } from 'vue-router';  
+import { useUserStore } from '../../stores/user.js';
 
-	const router = useRouter()  
-	const toast = inject('toast')
+const router = useRouter();  
+const toast = inject('toast');
+const axios = inject('axios');
 
-	const credentials = ref({
-		username: '',
-		password: ''
-	});
+const credentials = ref({
+	username: '',
+	password: ''
+});
 
-	const userStore = useUserStore()     
+const userStore = useUserStore();     
 
-	const emit = defineEmits(['login'])
+const emit = defineEmits(['login']);
 
-	const login = async () => {
-		if (await userStore.login(credentials.value)) {
-			toast.success('User ' + userStore.user.name + ' has entered the application.')
-			emit('login')
-			router.back()
-		} else {
-			credentials.value.password = ''
-			toast.error('User credentials are invalid!')
-		}
+const login = async () => {
+	if (await userStore.login(credentials.value)) {
+		toast.success('User ' + userStore.user.name + ' has entered the application.');
+		// eslint-disable-next-line no-undef
+		axios.defaults.headers.common.Authorization = 'Bearer ' + response.data.access_token;
+		emit('login');
+		router.back();
+	} else {
+		delete axios.defaults.headers.common.Authorization;
+		credentials.value.password = '';
+		toast.error('User credentials are invalid!');
 	}
+};
 </script>
 
 <template>

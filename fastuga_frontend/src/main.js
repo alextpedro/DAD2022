@@ -29,7 +29,7 @@ app.use(Toaster, {
 	position: 'top',
 	timeout: 3000,
 	pauseOnHover: true
-});
+}).provide('toast', app.config.globalProperties.$toast);
 
 app.use(router);
 app.use(pinia);
