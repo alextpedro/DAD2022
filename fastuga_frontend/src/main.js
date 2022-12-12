@@ -2,6 +2,7 @@ import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import axios from 'axios';
 import Toaster from '@meforma/vue-toaster';
+import { io } from 'socket.io-client';
 
 import App from './App.vue';
 import router from './router'; //go to this file to define routes
@@ -30,6 +31,8 @@ app.use(Toaster, {
 	timeout: 3000,
 	pauseOnHover: true
 }).provide('toast', app.config.globalProperties.$toast);
+
+app.provide('socket', io('http://localhost:8080'));
 
 app.use(router);
 app.use(pinia);
