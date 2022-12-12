@@ -125,6 +125,17 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+        /*
+    |--------------------------------------------------------------------------
+    | Passport configuration
+    |--------------------------------------------------------------------------
+    |
+    */
+
+    'passport_url' => env('PASSPORT_SERVER_URL', 'http://localhost'),
+    'passport_client_id' => env('PASSPORT_CLIENT_ID', 2),
+    'passport_client_secret' => env('PASSPORT_CLIENT_SECRET'),
+
     /*
     |--------------------------------------------------------------------------
     | Maintenance Mode Driver
