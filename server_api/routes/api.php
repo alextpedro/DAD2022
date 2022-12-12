@@ -38,7 +38,6 @@ Route::middleware('auth:api')->group(function () {
     Route::get('orders/{order}', [OrderController::class, 'getItemsOfOrder']);
 });
 
-Route::get('products', [ProductController::class, 'getAllProducts']);
-
-
+// Route::get('products', [ProductController::class, 'getAllProducts']);
+Route::resource('products', ProductController::class);
 
