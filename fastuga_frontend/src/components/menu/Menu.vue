@@ -51,7 +51,7 @@ onMounted(() => {
 		<tbody>
 			<tr v-for="item in items" :key="item.id">
 				<td>
-					<img :src="'http://127.0.0.1:8000/' + item.photo_url" />
+					<img :src="'http://127.0.0.1:8000/storage/products/' + item.photo_url" width="64" height="64" />
 				</td>
 				<td>
 					<span>{{ item.name }}</span>
@@ -85,6 +85,15 @@ onMounted(() => {
 			</router-link>
 		</button>
 		<button type="button" class="btn btn-success" @click="submitOrder">Proceed to Checkout</button>
+	</div>
+
+	<!--For managers-->
+	<div class="btn-group float-start" role="group">
+		<button type="button" class="btn btn-info">
+			<router-link class="nav-link" :to="{ name: 'Home' }">
+				New Item
+			</router-link>
+		</button>
 	</div>
 
 </template>
