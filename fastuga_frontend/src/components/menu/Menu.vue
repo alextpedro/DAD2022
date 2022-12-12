@@ -13,12 +13,18 @@ const axios = inject('axios');
 
 const items = ref([]);
 
+const selectedItems = ref([]);
+
 const submitOrder = () => {
+	console.log(selectedItems);
+
 	console.log('TODO - Functionality not implemented.');
-	router.push('/order');
-	// Bundle all selected menu items
-	// Wait for payment?
-	// Send order (and hot dishes to chefs?)
+	router.push({
+		name: 'Order',
+		params: {
+
+		}
+	});
 };
 
 const loadItems = () => {
@@ -72,7 +78,7 @@ onMounted(() => {
 					</span>
 				</td>
 				<td>
-					<input type="checkbox" value="Add to Order" />
+					<input type="checkbox" :value="item" v-model="selectedItems" />
 				</td>
 			</tr>
 		</tbody>
