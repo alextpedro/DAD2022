@@ -27,6 +27,10 @@ const saveItem = () => {
 				<option value="dessert">Dessert</option>
 			</select>
 			<field-error-message fieldName="type"></field-error-message>
+
+			<label for="inputPrice" class="form-label">Price</label>
+			<input type="number" id="inputPrice" class="form-control" required min="0" />
+			<field-error-message fieldName="price"></field-error-message>
 		</div>
 
 		<div class="mb-3">

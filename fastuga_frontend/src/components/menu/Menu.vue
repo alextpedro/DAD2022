@@ -90,7 +90,7 @@ onMounted(() => {
 	<!--For managers-->
 	<div class="btn-group float-start" role="group">
 		<button type="button" class="btn btn-info">
-			<router-link class="nav-link" :to="{ name: 'Home' }">
+			<router-link class="nav-link" :to="{ name: 'EditItem' }">
 				New Item
 			</router-link>
 		</button>
