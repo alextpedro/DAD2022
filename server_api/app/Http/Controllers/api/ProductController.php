@@ -38,6 +38,8 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        //On the request, process the file input into a url
+        //https://laravel.com/docs/master/requests
         $products = Product::create($request->all());
         
         return new ProductResource($products);

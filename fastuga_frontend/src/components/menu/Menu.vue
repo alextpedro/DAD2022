@@ -1,26 +1,22 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import { inject, onMounted, ref } from 'vue';
+import { useOrderStore } from '@/stores/order.js';
 
 const router = useRouter();
 const axios = inject('axios');
 const serverBaseUrl = inject('serverBaseUrl');
 const apiPort = inject('apiPort');
 
+const orderStore = useOrderStore();
+
 const items = ref([]);
 
 const selectedItems = ref([]);
 
 const submitOrder = () => {
-	console.log(selectedItems);
-
-	console.log('TODO - Functionality not implemented.');
-	router.push({
-		name: 'Order',
-		params: {
-
-		}
-	});
+	orderStore.order = selectedItems.value;
+	router.push('Order');
 };
 
 const loadItems = () => {

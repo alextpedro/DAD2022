@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHistory, parseQuery } from 'vue-router';
 import Login from '@/components/auth/Login.vue';
 import Register from '@/components/auth/Register.vue';
 import HomeView from '@/views/HomeView.vue';
@@ -32,9 +32,9 @@ const routes = [
 		component: Menu
 	},
 	{
-		path: '/order',
+		path: '/order/',
 		name: 'Order',
-		component: Order
+		component: Order,
 	},
 	{
 		path: '/listusers',

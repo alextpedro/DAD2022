@@ -1,40 +1,14 @@
 <script setup>
-// Placeholder for development purposes
-const order = [
-	{
-		id: 1,
-		name: 'My amazing item',
-		type: 'Hot dish?',
-		description: 'The hottest dish to ever dish.',
-		photo_url: 'https://via.placeholder.com/150',
-		price: 350000
-	}, {
-		id: 2,
-		name: 'Salad',
-		type: 'Hot dish?',
-		description: 'The hottest dish to ever dish.',
-		photo_url: 'https://via.placeholder.com/150',
-		price: 350000
-	},
-	{
-		id: 3,
-		name: 'My amazing item',
-		type: 'Hot dish?',
-		description: 'The hottest dish to ever dish.',
-		photo_url: 'https://via.placeholder.com/150',
-		price: 350000
-	},
-	{
-		id: 4,
-		name: 'My amazing item',
-		type: 'Hot dish?',
-		description: 'The hottest dish to ever dish.',
-		photo_url: 'https://via.placeholder.com/150',
-		price: 350000
-	}];
+import { useOrderStore } from '@/stores/orderStore.order.js';
+import { inject } from 'vue';
 
-const removeItemFromOrder = () => {
-	console.log('TODO - Functionality not implemented.');
+const orderStore = useOrderStore();
+
+const serverBaseUrl = inject('serverBaseUrl');
+const apiPort = inject('apiPort');
+
+const removeItemFromOrder = (item) => {
+	orderStore.orderStore.order.splice(item,1);
 };
 </script>
 
@@ -50,9 +24,9 @@ const removeItemFromOrder = () => {
 			</tr>
 		</thead>
 		<tbody>
-			<tr v-for="item in order" :key="item.id">
+			<tr v-for="item in orderStore.order" :key="item.id">
 				<td>
-					<img :src="item.photo_url" />
+					<img :src="serverBaseUrl + apiPort + '/storage/products/' + item.photo_url" width="64" height="64" />
 				</td>
 				<td>
 					<span>{{ item.name }}</span>
@@ -71,7 +45,7 @@ const removeItemFromOrder = () => {
 					<input type="number" value="1" />
 				</td>
 				<td>
-					<button type="button" class="btn btn-danger" @click="removeItemFromOrder">
+					<button type="button" class="btn btn-danger" @click="removeItemFromOrder(item)">
 						<i class="bi bi-trash"></i>
 					</button>
 				</td>
