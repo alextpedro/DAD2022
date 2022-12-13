@@ -4,6 +4,8 @@ import { inject, onMounted, ref } from 'vue';
 
 const router = useRouter();
 const axios = inject('axios');
+const serverBaseUrl = inject('serverBaseUrl');
+const apiPort = inject('apiPort');
 
 const items = ref([]);
 
@@ -51,7 +53,7 @@ onMounted(() => {
 		<tbody>
 			<tr v-for="item in items" :key="item.id">
 				<td>
-					<img :src="'http://127.0.0.1:8000/storage/products/' + item.photo_url" width="64" height="64" />
+					<img :src="serverBaseUrl + apiPort + '/storage/products/' + item.photo_url" width="64" height="64" />
 				</td>
 				<td>
 					<span>{{ item.name }}</span>
