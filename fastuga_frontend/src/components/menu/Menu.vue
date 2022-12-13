@@ -1,13 +1,7 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import { inject, onMounted, ref } from 'vue';
-// A menu has items 
-// const props = defineProps({
-//     items: {
-//         type: Array,
-//         default: () => [],
-//     }
-// })
+
 const router = useRouter();
 const axios = inject('axios');
 
@@ -30,7 +24,7 @@ const submitOrder = () => {
 const loadItems = () => {
 	axios.get('products')
 		.then((response) => {
-			items.value = response.data;
+			items.value = response.data.data;
 		})
 		.catch((error) => {
 			console.log(error);
