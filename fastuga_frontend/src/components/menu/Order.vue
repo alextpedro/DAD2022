@@ -1,5 +1,5 @@
 <script setup>
-import { useOrderStore } from '@/stores/orderStore.order.js';
+import { useOrderStore } from '@/stores/order.js';
 import { inject } from 'vue';
 
 const orderStore = useOrderStore();
@@ -8,7 +8,7 @@ const serverBaseUrl = inject('serverBaseUrl');
 const apiPort = inject('apiPort');
 
 const removeItemFromOrder = (item) => {
-	orderStore.orderStore.order.splice(item,1);
+	orderStore.order.splice(item,1);
 };
 </script>
 
