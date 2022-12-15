@@ -17,4 +17,11 @@ class OrderController extends Controller
     public function getItemsOfOrder (Order $order) {
         return $order->items;
     }
+
+    public function index(Request $request)
+    {
+        $title = "Orders List";
+        $orders = Order::paginate(10);
+        return view('encomendas.index', compact('title', 'orders'));
+    }
 }

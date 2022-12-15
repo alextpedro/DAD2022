@@ -1,129 +1,71 @@
+<script setup>
+import { ref, inject } from 'vue';
+import { useRouter } from 'vue-router';
+import { useUserStore } from '../../stores/user.js';
+
+const router = useRouter();
+const toast = inject('toast');
+const axios = inject('axios');
+
+const credentials = ref({
+    username: '',
+    email: '',
+    password: '',
+    passwordConfirmation: '',
+});
+
+const userStore = useUserStore();
+
+const emit = defineEmits(['register']);
+
+const register = async () => {
+	if (await userStore.register(credentials.value)) {
+		toast.success('User ' + userStore.user.name + ' has register in the application.');
+		emit('register');
+		router.back();
+	} else {
+		credentials.value.password = '';
+		toast.error('User credentials are invalid!');
+	}
+};
+</script>
+
 <template>
-    <div id="app">
-        <v-app id="inspire">
-            <v-content>
-                <v-container fluid fill-height fill-width>
-                    <v-layout align-center justify-center>
-                        <v-flex xs12 sm8 md4>
-                            <v-card class="elevation-12">
-                                <v-toolbar color="primary" dark flat>
-                                    <v-toolbar-title>Register</v-toolbar-title>
-                                    <v-spacer></v-spacer>
-                                    <v-tooltip bottom>
-                                        <!--<template v-slot:activator="{ on }">
-                                        </template>-->
-                                    </v-tooltip>
-                                    <v-tooltip right>
-                                        <!--<template v-slot:activator="{ on }">
-                                        </template>-->
-                                        <span>Codepen</span>
-                                    </v-tooltip>
-                                </v-toolbar>
-                                <v-card-text>
-                                    <v-form ref="form">
-                                        <v-text-field label="Name" name="name" prepend-icon="person" type="text"
-                                            v-model="name" :rules="[rules.required, rules.counter]"></v-text-field>
-                                        <v-text-field label="Email" name="email" prepend-icon="person" type="text"
-                                            v-model="email" :rules="[rules.required, rules.counter, rules.email]">
-                                        </v-text-field>
-                                        <v-text-field id="password" label="Password" name="password" prepend-icon="lock"
-                                            type="password" v-model="password"
-                                            :rules="[rules.required, rules.password]">
-                                        </v-text-field>
-                                        <v-text-field id="passwordConfirmation" label="Password Confirmation"
-                                            name="passwordConfirmation" prepend-icon="lock" type="password"
-                                            v-model="passwordConfirmation"
-                                            :rules="[rules.required, rules.password, rules.passwordConfirmation]">
-                                        </v-text-field>
-                                        <v-text-field id="nif" label="NIF" name="nif" prepend-icon="lock" type="number"
-                                            v-model="nif" :rules="[rules.required, rules.nif]"></v-text-field>
-                                        <v-file-input v-model="photo" placeholder="Pick an avatar" prepend-icon="camera"
-                                            label="Avatar"></v-file-input>
-                                    </v-form>
-                                </v-card-text>
-                                <v-card-actions>
-                                    <v-spacer></v-spacer>
-                                    <v-btn color="primary" v-on:click.prevent="register()">Register</v-btn>
-                                </v-card-actions>
-                            </v-card>
-                        </v-flex>
-                    </v-layout>
-                </v-container>
-            </v-content>
-        </v-app>
+    <div class="vue-template">
+        <form>
+            <h3 class="mt-5 mb-3">Register</h3>
+            <hr>
+            <div class="mb-3">
+                <div class="mb-3">
+                    <label for="inputUsername" class="form-label">Full Name</label>
+                    <input type="text" class="form-control" id="inputUsername" required v-model="credentials.username">
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="mb-3">
+                    <label for="inputUserEmail" class="form-label">Email</label>
+                    <input type="text" class="form-control" id="inputUserEmail" required v-model="credentials.email">
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="mb-3">
+                    <label for="inputPassword" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="inputPassword" required v-model="credentials.password">
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="mb-3">
+                    <label for="inputPasswordConfirmation" class="form-label">Password Confirmation</label>
+                    <input type="password" class="form-control" id="inputPasswordConfirmation" required v-model="credentials.passwordConfirmation">
+                </div>
+            </div>
+            <div class="mb-3 d-flex justify-content-center">
+                <button type="button" class="btn btn-primary px-5" @click="register">Register</button>
+            </div>
+        </form>
     </div>
 </template>
 
-<script>
-export default {
-    data: function () {
-        return {
-            name: null,
-            email: null,
-            password: null,
-            passwordConfirmation: null,
-            nif: null,
-            selectedFile: null,
-            type: 'C',
-            active: 1,
-            photo: null,
-            rules: {
-                required: value => !!value || 'Required.',
-                counter: value => value == null || value.length <= 20 || 'Max 20 characters',
-                email: value => {
-                    const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-                    return pattern.test(value) || 'Invalid e-mail.'
-                },
-                password: value => {
-                    const pattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{3,}$/
-                    return pattern.test(value) || 'Must contain at least 1 uppercase letter, 1 lowercase letter and 1 number. Min of 3 characters'
-                },
-                passwordConfirmation: value => value == null || value == this.password || 'Passwords dont match.',
-                nif: value => {
-                    const pattern = /^([0-9]{9})+$/
-                    return pattern.test(value) || 'Min of 9 characters'
-                }
-            },
-            hasAlert: null
-        }
-    },
-    methods: {
-        register: async function () {
-            this.hasAlert = false;
-
-            if (!this.$refs.form.validate()) {
-                return;
-            }
-            const formData = new FormData();
-
-            formData.append('name', this.name);
-            formData.append('email', this.email);
-            formData.append('password', this.password);
-            formData.append('password_confirmation', this.passwordConfirmation);
-            formData.append('type', this.type);
-            formData.append('active', this.active);
-            formData.append('nif', this.nif);
-            console.log(this.photo)
-
-            if (this.photo) formData.append('photo', this.photo);
-            const headers = { 'Content-Type': 'multipart/form-data' }
-
-            await axios.post('api/register', formData, headers)
-                .then(response => {
-                    /*SAVE TOKEN IN SESSION*/
-                    const token = response.data.access_token
-                    localStorage.setItem('token', token)
-                    axios.defaults.headers.common['Authorization'] = token
-
-                    this.$router.push('/login')
-                }).catch(error => {
-                    this.hasAlert = true
-                    console.log(error)
-                });
-        }
-    }
-}
-</script>
 <style>
 
 </style>

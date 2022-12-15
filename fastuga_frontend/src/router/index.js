@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory, parseQuery } from 'vue-router';
 import Login from '@/components/auth/Login.vue';
-import Register from '@/components/auth/Register.vue';
+import RegisterView from '@/components/auth/Register.vue';
 import HomeView from '@/views/HomeView.vue';
 import Menu from '@/components/menu/Menu.vue';
 import Order from '@/components/menu/Order.vue';
@@ -23,8 +23,8 @@ const routes = [
 	},
 	{
 		path: '/register',
-		name: 'Register',
-		component: Register
+		name: 'RegisterView',
+		component: RegisterView
 	},
 	{
 		path: '/menu',
