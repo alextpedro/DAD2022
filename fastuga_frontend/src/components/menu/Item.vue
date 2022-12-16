@@ -1,9 +1,12 @@
 <script setup>
 import { inject, ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 const axios = inject('axios');
+const router = useRouter();
 
-const uploaded_file = ref();
+let uploadedFile = null;
+const uploadedFileUrl = ref();
 const inputName = ref();
 const inputType = ref();
 const inputPrice = ref();
@@ -11,31 +14,29 @@ const inputDescription = ref();
 
 
 const handleFileUpload = (event) => {
-	uploaded_file.value = URL.createObjectURL(event.target.files[0]);
+	uploadedFile = event.target.files[0];
+	uploadedFileUrl.value = URL.createObjectURL(event.target.files[0]);
 };
 
 const saveItem = () => {
-	console.log('TODO - Functionality not implemented.');
-
-	//Gather all data
 	const formData = new FormData();
-	formData.append('file', uploaded_file);
+	formData.append('file', uploadedFile);
 	formData.append('name', inputName.value);
 	formData.append('type', inputType.value);
 	formData.append('price', inputPrice.value);
 	formData.append('description', inputDescription.value);
 	console.log(formData);
 
-	//Send to API with axios
-	axios.post('/products', formData,
-		{
-			headers: {
-				'Content-Type': 'multipart/form-data'
-			}
-		}).then(function(){
-		console.log('SUCCESS!!');
-	})
-		.catch(function(){
+	axios.post('/products', formData, {
+		headers: {
+			'Content-Type': 'multipart/form-data',
+		}})
+		.then(() => {
+			console.log('SUCCESS!!');
+			router.push({name: 'Menu'});
+			
+		})
+		.catch(() => {
 			console.log('FAILURE!!');
 		});
 };
@@ -44,9 +45,9 @@ const saveItem = () => {
 <template>
 	<form class="row g-3 needs-validation" novalidate @submit.prevent="save" enctype="multipart/form-data">
 		<div class="form-group">
-			<img v-if="uploaded_file" :src="uploaded_file" width="150" height="150"/>
+			<img v-if="uploadedFileUrl" :src="uploadedFileUrl" width="150" height="150"/>
 			<img v-else src="https://via.placeholder.com/150" />
-			<input type="file" id="inputImg" accept="image/png, image/jpeg" @change="handleFileUpload($event)" />
+			<input type="file" id="inputImg" accept="image/*" @change="handleFileUpload($event)" />
 		</div>
 
 		<div class="mb-3">
@@ -58,8 +59,8 @@ const saveItem = () => {
 		<div class="mb-3">
 			<label for="inputType" class="form-label">Type</label>
 			<select type="dropdown" class="form-control" id="inputType" v-model="inputType" required>
-				<option value="hotDish">Hot Dish</option>
-				<option value="coldDish">Cold Dish</option>
+				<option value="hot dish">Hot Dish</option>
+				<option value="cold dish">Cold Dish</option>
 				<option value="drink">Drink</option>
 				<option value="dessert">Dessert</option>
 			</select>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Http\Resources\ProductResource;
 use Illuminate\Http\Request;
+use Storage;
 
 class ProductController extends Controller
 {
@@ -38,12 +39,27 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //On the request, process the file input into a url
-        //https://laravel.com/docs/master/requests
-        $products = Product::create($request->all());
-        
-        return new ProductResource($products);
+		
+        if($request->file()) {
+            $fileName = time().'_'.$request->file->hashName();
+            $filePath = Storage::putFile('public/products/', $request->file('file'));
+            $storageName = basename($filePath);
+        }
+ 
+        $product = new Product([
+            "name"=>$request->get('name'),
+            "type"=>$request->get('type'),
+            "description"=>$request->get('description'), 
+            "photo_url"=>$storageName,
+            "price"=>$request->get('price'),
+		]);
+		
+		$product->save();
+
+        return response()->json(['message' => 'success']);
+    
     }
+
 
     /**
      * Display the specified resource.
