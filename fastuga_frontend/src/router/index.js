@@ -3,7 +3,8 @@ import Login from '@/components/auth/Login.vue';
 import RegisterView from '@/components/auth/Register.vue';
 import HomeView from '@/views/HomeView.vue';
 import Menu from '@/components/menu/Menu.vue';
-import Order from '@/components/menu/Order.vue';
+import Order from '@/components/orders/Order.vue';
+import Orders from '@/components/orders/Orders.vue';
 import Item from '@/components/menu/Item.vue';
 
 import ListUsers from '@/components/users/ListUsersEx.vue';
@@ -14,7 +15,7 @@ const routes = [
 	{
 		path: '/',
 		name: 'Home',
-		component: HomeView
+		component: Orders
 	},
 	{
 		path: '/login',

@@ -20,8 +20,13 @@ class OrderController extends Controller
 
     public function index(Request $request)
     {
-        $title = "Orders List";
-        $orders = Order::paginate(10);
-        return view('encomendas.index', compact('title', 'orders'));
+        $orders = Order::paginate(50);
+        return $orders;
+    }
+
+    public function getOrdersReady(Request $request) 
+    {
+        $orders = Order::where('status', 'R')->get();
+        return $orders;
     }
 }

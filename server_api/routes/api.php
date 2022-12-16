@@ -40,3 +40,5 @@ Route::middleware('auth:api')->group(function () {
 
 Route::resource('products', ProductController::class);
 
+Route::get('orders', [OrderController::class, 'getOrdersReady']);
+
