@@ -20,6 +20,7 @@ use App\Http\Controllers\api\UserController;
 */
 
 Route::post('login', [AuthController::class, 'login']);
+Route::post('register', [UserController::class, 'register']);
 
 // Routes that require login. 
 Route::middleware('auth:api')->group(function () {
@@ -39,6 +40,7 @@ Route::middleware('auth:api')->group(function () {
 });
 
 Route::resource('products', ProductController::class);
+Route::resource('users', UserController::class);
 
 Route::get('orders', [OrderController::class, 'getOrdersReady']);
 

@@ -152,6 +152,13 @@ const logout = async () => {
 								Reports
 							</a>
 						</li>
+						<li class="nav-item">
+							<!-- <router-link class="nav-link bi bi-person" to="/register">Register</router-link> -->
+							<router-link class="nav-link" :class="{ active: $route.name === 'listusers' }" :to="{ name: 'listusers' }">
+								<i class="bi bi-person"></i>
+								Users
+							</router-link>
+						</li>
 					</ul>
 
 					<!-- API-DEPENDENT SIDEBAR -->

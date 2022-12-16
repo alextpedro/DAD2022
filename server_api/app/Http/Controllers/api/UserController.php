@@ -9,6 +9,7 @@ use App\Http\Resources\UserResource;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\UpdateUserPasswordRequest;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 
 class UserController extends Controller
@@ -30,12 +31,21 @@ class UserController extends Controller
             'name' => 'required|string|min:3|regex:/^[A-Za-záàâãéèêíóôõúçÁÀÂÃÉÈÍÓÔÕÚÇ ]+$/',
             'email' => 'required|email|unique:users,email',
             'password' => 'nullable|min:3|confirmed',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,bmp',
+            'photo_url' => 'nullable|image|mimes:jpeg,png,jpg,bmp',
         ]);
         $user = new User();
+
+        if($request->has('photo_url')) {
+            $photo_name = Str::uuid() . '.' . $request->photo_url->getClientOriginalExtension();
+            $targetDir = storage_path("app/public/fotos");
+            $request->photo_url->move($targetDir, $photo_name);
+            $user->photo_url = $photo_name;
+        }
+
         $user->fill($request->all());
         $user->password = Hash::make($user->password);
-        $user->save();        
+        $user->save();       
+
         return response()->json(new UserResource($user), 201);
     }
 
