@@ -1,3 +1,4 @@
+<!-- eslint-disable indent -->
 <script setup>
 import { useRouter } from 'vue-router';
 import { inject, onMounted, ref } from 'vue';
@@ -12,11 +13,6 @@ const UserStore = useUserStore();
 
 const selectedUsers = ref([]);
 
-// const submitUserRemove = () => {
-// 	UserStore.user = selectedUsers.value;
-// 	router.push('User');
-// };
-
 const users = ref([]);
 
 const loadUsers = () => {
@@ -29,11 +25,28 @@ const loadUsers = () => {
 		});
 };
 
+const editUser = (id) => {
+    axios.put('api/users/{user}', id)
+        .then((response) => {
+            this.users = response.data.data;
+        })
+        .catch((err) => {
+            console.log(err.response.data);
+        });
+};
+
+const deleteUser = (id) => {
+	console.log();
+	axios.delete(`api/users/delete/${id}`).then((response) => {
+		this.loadUsers();
+	});
+};
+
 onMounted(() => {
 	loadUsers();
 });
-
 </script>
+
 
 <template>
     <table class="table">
@@ -48,27 +61,27 @@ onMounted(() => {
         </thead>
         <tbody>
             <tr v-for="user in users" :key="user.id">
-                <td>
+                <td class="align-middle">
                     <img :src="serverBaseUrl + apiPort + '/storage/fotos/' + user.photo_url" width="64" height="64" />
                 </td>
-                <td>
+                <td class="align-middle">
                     <span>{{ user.name }}</span>
                 </td>
-                <td>
+                <td class="align-middle">
                     <span>
                         {{ user.email }}
                     </span>
                 </td>
-                <td>
+                <td class="align-middle">
                     <span>
                         {{ user.type }}
                     </span>
                 </td>
-                <td>
-                    <button type="button" class="btn btn-danger">
+                <td class="align-middle">
+                    <button class="btn btn-sm btn-danger" v-on:click.prevent="deleteUser(user.id)">
                         Delete
                     </button>
-                    <button type="button" class="btn btn-info">
+                    <button class="btn btn-info" v-on:click.prevent="editUser(user.id)">
                         Edit
                     </button>
                 </td>
@@ -90,9 +103,6 @@ onMounted(() => {
             </router-link>
         </button>
     </div>
-
-	
-
 
 </template>
 

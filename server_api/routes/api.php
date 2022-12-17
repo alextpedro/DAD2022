@@ -34,6 +34,8 @@ Route::middleware('auth:api')->group(function () {
         ->middleware('can:update,user');
     Route::patch('users/{user}/password', [UserController::class, 'update_password'])
         ->middleware('can:updatePassword,user');
+    Route::delete('users/delete/{id}', [UserController::class, 'destroy'])
+        ->middleware('can:destroy,user');
 
     Route::get('users/{user}/orders', [OrderController::class, 'getOrdersOfUser']);
     Route::get('orders/{order}', [OrderController::class, 'getItemsOfOrder']);
