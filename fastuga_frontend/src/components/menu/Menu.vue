@@ -2,6 +2,7 @@
 import { useRouter } from 'vue-router';
 import { inject, onMounted, ref } from 'vue';
 import { useOrderStore } from '@/stores/order.js';
+import { useProductStore } from '@/stores/product.js';
 
 const router = useRouter();
 const axios = inject('axios');
@@ -9,6 +10,7 @@ const serverBaseUrl = inject('serverBaseUrl');
 const apiPort = inject('apiPort');
 
 const orderStore = useOrderStore();
+const productStore = useProductStore();
 
 const items = ref([]);
 
@@ -17,6 +19,11 @@ const selectedItems = ref([]);
 const submitOrder = () => {
 	orderStore.order = selectedItems.value;
 	router.push('Order');
+};
+
+const editItem = (item) => {
+	productStore.product = item;
+	router.push('ItemEdit');
 };
 
 const loadItems = () => {
@@ -31,6 +38,7 @@ const loadItems = () => {
 
 onMounted(() => {
 	loadItems();
+	productStore.product = null;
 });
 </script>
 
@@ -38,6 +46,7 @@ onMounted(() => {
 	<table class="table">
 		<thead>
 			<tr>
+				<th></th>
 				<th>Photo</th>
 				<th>Name</th>
 				<th>Type</th>
@@ -48,6 +57,9 @@ onMounted(() => {
 		</thead>
 		<tbody>
 			<tr v-for="item in items" :key="item.id">
+				<td>
+					<button type="button" class="btn btn-outline-secondary" @click="editItem(item)"><span class="bi bi-pencil-square"></span></button>
+				</td>
 				<td>
 					<img :src="serverBaseUrl + apiPort + '/storage/products/' + item.photo_url" width="64" height="64" />
 				</td>

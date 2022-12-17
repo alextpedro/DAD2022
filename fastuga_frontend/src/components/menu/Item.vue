@@ -1,9 +1,15 @@
 <script setup>
-import { inject, ref } from 'vue';
+import { inject, ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
+import { useProductStore } from '@/stores/product.js';
 
 const axios = inject('axios');
 const router = useRouter();
+const serverBaseUrl = inject('serverBaseUrl');
+const apiPort = inject('apiPort');
+
+const productStore = useProductStore();
+const editProduct = productStore.product;
 
 let uploadedFile = null;
 const uploadedFileUrl = ref();
@@ -12,8 +18,20 @@ const inputType = ref();
 const inputPrice = ref();
 const inputDescription = ref();
 
+let boolFileUploaded = ref(false);
+
+const loadItem = () => {
+	if (editProduct) {
+		uploadedFileUrl.value = editProduct.photo_url;
+		inputName.value = editProduct.name;
+		inputType.value = editProduct.type;
+		inputPrice.value = editProduct.price;
+		inputDescription.value = editProduct.description;
+	}
+};
 
 const handleFileUpload = (event) => {
+	boolFileUploaded.value = true;
 	uploadedFile = event.target.files[0];
 	uploadedFileUrl.value = URL.createObjectURL(event.target.files[0]);
 };
@@ -25,27 +43,51 @@ const saveItem = () => {
 	formData.append('type', inputType.value);
 	formData.append('price', inputPrice.value);
 	formData.append('description', inputDescription.value);
-	console.log(formData);
 
-	axios.post('/products', formData, {
-		headers: {
-			'Content-Type': 'multipart/form-data',
-		}})
-		.then(() => {
-			console.log('SUCCESS!!');
-			router.push({name: 'Menu'});
+	if(editProduct) {
+		formData.append('photo_url', uploadedFileUrl.value);
+		formData.append('_method', 'put');
+		axios.post('/products/' + editProduct.id, formData, {
+			headers: {
+				'Content-Type': 'multipart/form-data',
+			}})
+			.then(() => {
+				console.log('SUCCESS!!');
+				router.push({name: 'Menu'});
 			
-		})
-		.catch(() => {
-			console.log('FAILURE!!');
-		});
+			})
+			.catch(() => {
+				console.log('FAILURE!!');
+			});
+	} 
+	else {
+		axios.post('/products', formData, {
+			headers: {
+				'Content-Type': 'multipart/form-data',
+			}})
+			.then(() => {
+				console.log('SUCCESS!!');
+				router.push({name: 'Menu'});
+			
+			})
+			.catch(() => {
+				console.log('FAILURE!!');
+			});
+	}
+
+
 };
+
+onMounted(() => {
+	loadItem();
+});
 </script>
 
 <template>
 	<form class="row g-3 needs-validation" novalidate @submit.prevent="save" enctype="multipart/form-data">
 		<div class="form-group">
-			<img v-if="uploadedFileUrl" :src="uploadedFileUrl" width="150" height="150"/>
+			<img v-if="boolFileUploaded" :src="uploadedFileUrl" width="150" height="150"/>
+			<img v-else-if="editProduct" :src="serverBaseUrl + apiPort + '/storage/products/' + uploadedFileUrl" width="150" height="150"/>
 			<img v-else src="https://via.placeholder.com/150" />
 			<input type="file" id="inputImg" accept="image/*" @change="handleFileUpload($event)" />
 		</div>
