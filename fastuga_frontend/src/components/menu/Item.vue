@@ -79,6 +79,17 @@ const saveItem = () => {
 
 };
 
+const deleteItem = () => {
+	axios.delete('/products/' + editProduct.id).then(() => {
+		console.log('SUCCESS!!');
+		router.push({name: 'Menu'});
+			
+	})
+		.catch(() => {
+			console.log('FAILURE!!');
+		});
+};
+
 onMounted(() => {
 	loadItem();
 });
@@ -121,6 +132,7 @@ onMounted(() => {
 		</div>
 
 		<div class="btn-group float-end" role="group">
+			<button v-if="editProduct" type="button" class="btn btn-info" @click="deleteItem">[MANAGER] Delete</button>
 			<button type="button" class="btn btn-danger">
 				<router-link class="nav-link" :to="{ name: 'Home' }">
 					Cancel

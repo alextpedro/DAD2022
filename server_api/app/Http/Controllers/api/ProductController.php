@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\OrderItem;
 use App\Http\Resources\ProductResource;
 use Illuminate\Http\Request;
 use Storage;
@@ -128,8 +129,11 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
-        //
+        $orders = OrderItem::where('product_id', $id)->delete();
+        
+        $product = Product::findOrFail($id);
+        $product->delete();
     }
 }
