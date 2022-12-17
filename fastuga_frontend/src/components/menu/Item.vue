@@ -53,6 +53,7 @@ const saveItem = () => {
 			}})
 			.then(() => {
 				console.log('SUCCESS!!');
+				productStore.product = null;
 				router.push({name: 'Menu'});
 			
 			})
