@@ -56,8 +56,6 @@ class ProductController extends Controller
             'description' => 'required|string|max:255',
             'price' => 'required|numeric',
          ]);
-        $request->validate([
-         ]);
 		
         if($request->file()) {
             $storageName = $this->uploadFile($request);

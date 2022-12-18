@@ -29,6 +29,9 @@ const checkout = () => {
 };
 
 const createOrder = () => {
+	// const date = new Date();
+	// const formattedDate = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDay() + ' ' + date.getHours() + '-' + date.getMinutes() + '-' + date.getSeconds();
+
 	const newOrder = {
 		'customer_id': userStore.userId,
 		'total_price': '1',
@@ -38,9 +41,8 @@ const createOrder = () => {
 		'points_used_to_pay': '1',
 		'payment_type': 'visa',
 		'payment_reference': '4283456893323321',
-		'date': new Date(),
 	};
-	axios.post(serverBaseUrl + apiPort + '/orders', newOrder)
+	axios.post(serverBaseUrl + apiPort + '/api/orders', newOrder)
 		.then(() => {
 			console.log('Order created successfully');
 		}).catch(() => {

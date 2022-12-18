@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Order;
 
+use Carbon\Carbon;
+
 class OrderController extends Controller
 {
     public function getOrdersOfUser(User $user) {
@@ -28,5 +30,30 @@ class OrderController extends Controller
     {
         $orders = Order::where('status', 'R')->get();
         return $orders;
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+        ]);
+ 
+        $order = new Order([
+            'ticket_number'=>'1',
+            'status'=>'p',
+            'customer_id'=>$request->input('customer_id'),
+            'total_price'=>$request->input('total_price'),
+		    'total_paid'=>$request->input('total_paid'),
+		    'total_paid_with_points'=>$request->input('customer_id'),
+		    'points_gained'=>$request->input('points_gained'),
+		    'points_used_to_pay'=>$request->input('points_used_to_pay'),
+		    'payment_type'=>$request->input('payment_type'),
+		    'payment_reference'=>$request->input('payment_reference'),
+		    'date'=>Carbon::now(),
+		]);
+		
+		$order->save();
+
+        return response()->json(['message' => 'success']);
+    
     }
 }

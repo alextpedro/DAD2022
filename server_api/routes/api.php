@@ -41,6 +41,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::get('users/{user}/orders', [OrderController::class, 'getOrdersOfUser']);
     Route::get('orders/{order}', [OrderController::class, 'getItemsOfOrder']);
+    Route::post('orders', [OrderController::class, 'store']);
 
     Route::post('products', [ProductController::class, 'store']);
     Route::put('products/{id}', [ProductController::class, 'update']);
