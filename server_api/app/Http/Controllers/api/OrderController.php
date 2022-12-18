@@ -35,6 +35,17 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'ticket_number'=>'required|numeric',
+		    'status'=>'required|in:"p", "r", "d", "c"',
+            'customer_id'=>'required|numeric',
+            'total_price'=>'required|numeric',
+		    'total_paid'=>'required|numeric',
+		    'total_paid_with_points'=>'required|numeric',
+		    'points_gained'=>'required|numeric',
+		    'points_used_to_pay'=>'required|numeric',
+		    'payment_type'=>'required|in:"visa", "paypal", "mbway"',
+		    'payment_reference'=>'required|string|max:255',
+		    'date'=>'required|date',
         ]);
  
         $order = new Order([
