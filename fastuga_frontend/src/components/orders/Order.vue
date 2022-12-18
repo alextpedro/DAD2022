@@ -1,14 +1,51 @@
 <script setup>
 import { useOrderStore } from '@/stores/order.js';
+import { useUserStore } from '@/stores/user.js';
 import { inject } from 'vue';
 
 const orderStore = useOrderStore();
-
+const userStore = useUserStore();
+const axios = inject('axios');
 const serverBaseUrl = inject('serverBaseUrl');
 const apiPort = inject('apiPort');
 
 const removeItemFromOrder = (item) => {
 	orderStore.order.splice(item,1);
+};
+
+const checkout = () => {
+	axios.post('https://dad-202223-payments-api.vercel.app/api/payments',
+		{
+			'type': 'visa',
+			'reference': '4283456893323321',
+			'value': 34.01
+		})
+		.then(() => {
+			createOrder();
+		})
+		.catch(() => {
+			console.log('Payment failure');
+		});
+};
+
+const createOrder = () => {
+	const newOrder = {
+		'customer_id': userStore.userId,
+		'total_price': '1',
+		'total_paid': '1',
+		'total_paid_with_points': '1',
+		'points_gained': '1',
+		'points_used_to_pay': '1',
+		'payment_type': 'visa',
+		'payment_reference': '4283456893323321',
+		'date': new Date(),
+	};
+	axios.post(serverBaseUrl + apiPort + '/orders', newOrder)
+		.then(() => {
+			console.log('Order created successfully');
+		}).catch(() => {
+			console.log('Order failure');
+		});
 };
 </script>
 
@@ -58,6 +95,6 @@ const removeItemFromOrder = (item) => {
 				Cancel
 			</router-link>
 		</button>
-		<button class="btn btn-success">Complete Order</button>
+		<button class="btn btn-success" @click="checkout">Complete Order</button>
 	</div>
 </template>
