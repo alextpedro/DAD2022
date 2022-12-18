@@ -49,6 +49,15 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'file' => 'required|mimes:jpg,jpeg,png|max:2048',
+            'name' => 'required|max:255',
+            'type' => 'required|in:"hot dish", "cold dish", "drink", "dessert"',
+            'description' => 'required|string|max:255',
+            'price' => 'required|numeric',
+         ]);
+        $request->validate([
+         ]);
 		
         if($request->file()) {
             $storageName = $this->uploadFile($request);
@@ -100,6 +109,14 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'type' => 'required|in:"hot dish", "cold dish", "drink", "dessert"',
+            'description' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'photo_url'=> 'required|string|max:255'
+         ]);
+
         $product = Product::find($id);
         $product->name = $request->input('name');
         $product->type = $request->input('type');
@@ -111,6 +128,9 @@ class ProductController extends Controller
 
         if ($requestPhotoUrl != $currentProductPhotoUrl) {
             if($request->file()) {
+                $request->validate([
+                    'file' => 'required|mimes:jpg,jpeg,png|max:2048',
+                ]);
                 $storageName = $this->uploadFile($request);
                 $product->photo_url = $storageName;
             }
