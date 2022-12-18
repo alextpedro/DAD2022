@@ -9,7 +9,7 @@ const axios = inject('axios');
 const serverBaseUrl = inject('serverBaseUrl');
 const apiPort = inject('apiPort');
 
-const UserStore = useUserStore();
+const userStore = useUserStore();
 
 const selectedUsers = ref([]);
 
@@ -25,25 +25,24 @@ const loadUsers = () => {
 		});
 };
 
-const editUser = (id) => {
-    axios.put('api/users/{user}', id)
-        .then((response) => {
-            this.users = response.data.data;
-        })
-        .catch((err) => {
-            console.log(err.response.data);
-        });
+const editUser = (user) => {
+	userStore.id = user;
+	router.push('EditUser');
 };
 
-const deleteUser = (id) => {
-	console.log();
-	axios.delete(`api/users/delete/${id}`).then((response) => {
-		this.loadUsers();
-	});
+const deleteUser = () => {
+    console.log();
+    axios.delete('/users/delete/' + editUser.id).then(() => {
+        console.log('SUCCESS!!');
+        router.push({ name: 'Users' });
+    }).catch(() => {
+        console.log('FAILURE!!');
+    });
 };
 
 onMounted(() => {
 	loadUsers();
+    userStore.user = null;
 });
 </script>
 
@@ -81,10 +80,7 @@ onMounted(() => {
                     <button class="btn btn-sm btn-danger" v-on:click.prevent="deleteUser(user.id)">
                         Delete
                     </button>
-                    <button class="btn btn-info" v-on:click.prevent="editUser(user.id)">
-                        Edit
-                    </button>
-                </td>
+                    <button type="button" class="btn btn-info" @click="editUser(user)"><span class="bi-pencil-square"></span></button></td>
             </tr>
         </tbody>
     </table>
@@ -92,11 +88,11 @@ onMounted(() => {
     <div class="btn-group float-end" role="group">
         <!-- Botão para CANCELAR -->
         <button type="button" class="btn btn-secondary">
-            <router-link class="nav-link" :to="{ name: 'Home' }">
+            <router-link class="nav-link" :to="{ name: 'listusers' }">
                 Cancel
             </router-link>
         </button>
-        <!-- Botão para ADICIONAR novo User -->
+        <!--For managers-->
         <button type="button" class="btn btn-info">
             <router-link class="nav-link" :to="{ name: 'Home' }">
                 Add User

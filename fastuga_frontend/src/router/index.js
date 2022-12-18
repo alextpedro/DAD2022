@@ -7,6 +7,7 @@ import Order from '@/components/orders/Order.vue';
 import Orders from '@/components/orders/Orders.vue';
 import Item from '@/components/menu/Item.vue';
 
+import EditUser from '@/components/users/EditUser.vue';
 import ListUsers from '@/components/users/ListUsersEx.vue';
 import PlataformStatisticsEx from '@/components/statistics/PlataformStatisticsEx.vue';
 
@@ -41,6 +42,11 @@ const routes = [
 		path: '/listusers',
 		name: 'listusers',
 		component: ListUsers
+	},
+	{
+		path: '/editUser',
+		name: 'EditUser',
+		component: EditUser
 	},
 	{
 		path: '/plataformstatistics',

@@ -17,4 +17,8 @@ class Customer extends Model
         'default_payment_type',
         'default_payment_reference'
     ];
+
+    public function user(){
+        return $this->hasOne(User::class);
+    }
 }
