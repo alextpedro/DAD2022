@@ -136,7 +136,7 @@ const logout = async () => {
                 Projects
               </router-link> -->
 						</li>
-						<li class="nav-item">
+						<!-- <li class="nav-item"> -->
 							<!-- <router-link
                 class="nav-link"
                 :class="{ active: $route.name === 'Users' }"
@@ -145,13 +145,7 @@ const logout = async () => {
                 <i class="bi bi-people"></i>
                 Team Members
               </router-link> -->
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">
-								<i class="bi bi-bar-chart-line"></i>
-								Reports
-							</a>
-						</li>
+						
 						<li class="nav-item">
 							<!-- <router-link class="nav-link bi bi-person" to="/register">Register</router-link> -->
 							<router-link class="nav-link" :class="{ active: $route.name === 'listusers' }" :to="{ name: 'listusers' }">
@@ -162,14 +156,16 @@ const logout = async () => {
 					</ul>
 
 					<!-- API-DEPENDENT SIDEBAR -->
-					<h6
-						class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+					<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
 						<span>API Routes</span>
-						<!-- <router-link class="link-secondary" :to="{ name: 'NewProject'}" aria-label="Add a new project">
-              <i class="bi bi-xs bi-plus-circle"></i>
-            </router-link> -->
+						
 					</h6>
 					<ul class="nav flex-column mb-2">
+						<li class="nav-item">
+							<router-link class="nav-link w-100 me-3" :to="{ name: 'Plataformstatistics'}" aria-label="See platform statistics.">
+								<i class="bi bi-bar-chart-line">Statistics</i>
+							</router-link>
+						</li>
 						<!--<li class="nav-item" v-for="prj in workInProgressProjects" :key="prj.id">
 							<router-link class="nav-link w-100 me-3" 
                 :class="{active: $route.name == 'ProjectTasks' && $route.params.id == prj.id}"

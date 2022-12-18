@@ -11,6 +11,8 @@ import EditUser from '@/components/users/EditUser.vue';
 import ListUsers from '@/components/users/ListUsersEx.vue';
 import PlataformStatisticsEx from '@/components/statistics/PlataformStatisticsEx.vue';
 
+import { useUserStore } from '@/stores/user.js';
+
 //Vue router routes
 const routes = [
 	{
@@ -61,8 +63,41 @@ const routes = [
 ];
 
 const router = createRouter({
-	history: createWebHistory(), //TODO: configure on server side for these urls
+	history: createWebHistory(),
 	routes,
+});
+
+router.beforeEach((to, from, next) => {
+	const userStore = useUserStore();
+	if ((to.name == 'Login') || (to.name == 'Home')) {
+		next();
+		return;
+	}
+	if (!userStore.user && !(to.name == 'Menu')) {
+		next({ name: 'Login' });
+		return;
+	}
+	if (to.name == 'Plataformstatistics') {
+		if (userStore.user.type != 'EM') {
+			next({ name: 'Home' });
+			return;
+		}
+	}
+	if (to.name == 'EditUser') {
+		if ((userStore.user.type == 'EM') || (userStore.user.id == to.params.id)) {
+			next();
+			return;
+		}
+		next({ name: 'Home' });
+		return;
+	}
+	if (to.name == 'EditItem') {
+		if (userStore.user.type != 'EM') {
+			next({ name: 'Home' });
+			return;
+		}
+	}
+	next();
 });
 
 export default router;

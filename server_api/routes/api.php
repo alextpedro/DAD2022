@@ -24,6 +24,7 @@ Route::post('register', [UserController::class, 'register']);
 
 // Routes that require login. 
 Route::middleware('auth:api')->group(function () {
+    //All User routes
     Route::post('logout', [AuthController::class, 'logout']);
     Route::get('users/me', [UserController::class, 'show_me']);
 
@@ -34,14 +35,20 @@ Route::middleware('auth:api')->group(function () {
         ->middleware('can:update,user');
     Route::patch('users/{user}/password', [UserController::class, 'update_password'])
         ->middleware('can:updatePassword,user');
-    Route::delete('users/delete/{id}', [UserController::class, 'destroy'])
+        Route::delete('users/delete/{id}', [UserController::class, 'destroy'])
         ->middleware('can:destroy,user');
+    
 
     Route::get('users/{user}/orders', [OrderController::class, 'getOrdersOfUser']);
     Route::get('orders/{order}', [OrderController::class, 'getItemsOfOrder']);
+
+    Route::post('products', [ProductController::class, 'store']);
+    Route::put('products/{id}', [ProductController::class, 'update']);
+    Route::delete('products/{id}', [ProductController::class, 'destroy']);
+
 });
 
-Route::resource('products', ProductController::class);
+Route::get('products', [ProductController::class, 'index']);
 Route::resource('users', UserController::class);
 
 Route::get('orders', [OrderController::class, 'getOrdersReady']);
