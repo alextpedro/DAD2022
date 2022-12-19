@@ -10,7 +10,7 @@ const serverBaseUrl = inject('serverBaseUrl');
 const apiPort = inject('apiPort');
 
 const UserStore = useUserStore();
-const editUser = UserStore.id;
+const editUser = UserStore.user;
 
 let uploadedFile = null;
 const uploadedFileUrl = ref();
@@ -46,7 +46,7 @@ const handleFileUpload = (event) => {
 const saveUser = (id) => {
 	axios.put('api/users/{user}', id)
 		.then((response) => {
-			this.users = response.data.data;
+			users.value = response.data.data;
 		})
 		.catch((err) => {
 			console.log(err.response.data);

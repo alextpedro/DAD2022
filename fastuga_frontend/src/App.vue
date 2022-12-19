@@ -30,7 +30,7 @@ const logout = async () => {
 <template>
 	<nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top flex-md-nowrap p-0 shadow">
 		<div class="container-fluid">
-			<router-link class="navbar-brand col-md-3 col-lg-2 me-0 px-3" :to="{ name: 'Home' }">
+			<router-link class="navbar-brand col-md-3 col-lg-2 me-0 px-3" :to="{ name: 'Home' }" @click="clickMenuOption">
 				<img src="@/assets/logo.svg" alt="" width="30" height="24" class="d-inline-block align-text-top" />
 				FasTuga
 			</router-link>

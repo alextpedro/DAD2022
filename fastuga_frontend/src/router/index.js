@@ -67,8 +67,13 @@ const router = createRouter({
 	routes,
 });
 
-router.beforeEach((to, from, next) => {
+let handlingFirstRoute = true;
+router.beforeEach(async (to, from, next) => {
 	const userStore = useUserStore();
+	if (handlingFirstRoute) {
+		handlingFirstRoute = false;
+		await userStore.restoreToken();
+	}
 	if ((to.name == 'Login') || (to.name == 'Home')) {
 		next();
 		return;
@@ -84,12 +89,10 @@ router.beforeEach((to, from, next) => {
 		}
 	}
 	if (to.name == 'EditUser') {
-		if ((userStore.user.type == 'EM') || (userStore.user.id == to.params.id)) {
-			next();
+		if ((userStore.user.type != 'EM')) {
+			next({ name: 'Home' });
 			return;
 		}
-		next({ name: 'Home' });
-		return;
 	}
 	if (to.name == 'EditItem') {
 		if (userStore.user.type != 'EM') {

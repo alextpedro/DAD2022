@@ -49,7 +49,7 @@ class OrderController extends Controller
         ]);
  
         $order = new Order([
-            'ticket_number'=>'1',
+            'ticket_number'=>$request->input('ticket_number'),
             'status'=>'p',
             'customer_id'=>$request->input('customer_id'),
             'total_price'=>$request->input('total_price'),

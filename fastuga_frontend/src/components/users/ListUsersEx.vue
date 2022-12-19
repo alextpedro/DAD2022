@@ -26,8 +26,8 @@ const loadUsers = () => {
 };
 
 const editUser = (user) => {
-	userStore.id = user;
-	router.push('EditUser');
+	userStore.user = user;
+	router.push({name: 'EditUser'});
 };
 
 const deleteUser = () => {

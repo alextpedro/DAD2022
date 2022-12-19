@@ -29,10 +29,9 @@ const checkout = () => {
 };
 
 const createOrder = () => {
-	// const date = new Date();
-	// const formattedDate = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDay() + ' ' + date.getHours() + '-' + date.getMinutes() + '-' + date.getSeconds();
 
 	const newOrder = {
+		'ticket_number': orderStore.getNextTicketN(),
 		'customer_id': userStore.userId,
 		'total_price': '1',
 		'total_paid': '1',
