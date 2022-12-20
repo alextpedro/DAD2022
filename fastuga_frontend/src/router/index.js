@@ -6,6 +6,7 @@ import Menu from '@/components/menu/Menu.vue';
 import Order from '@/components/orders/Order.vue';
 import Orders from '@/components/orders/Orders.vue';
 import Item from '@/components/menu/Item.vue';
+import Chefs from '@/components/employees/Chefs.vue';
 
 import EditUser from '@/components/users/EditUser.vue';
 import ListUsers from '@/components/users/ListUsersEx.vue';
@@ -60,6 +61,11 @@ const routes = [
 		name: 'EditItem',
 		component: Item
 	},
+	{
+		path: '/chefs',
+		name: 'Chefs',
+		component: Chefs
+	},
 ];
 
 const router = createRouter({
@@ -96,6 +102,12 @@ router.beforeEach(async (to, from, next) => {
 	}
 	if (to.name == 'EditItem') {
 		if (userStore.user.type != 'EM') {
+			next({ name: 'Home' });
+			return;
+		}
+	}
+	if ((to.name == 'Chefs')) {
+		if (userStore.user.type != 'EC') {
 			next({ name: 'Home' });
 			return;
 		}

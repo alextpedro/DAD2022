@@ -8,6 +8,7 @@ const userStore = useUserStore();
 const axios = inject('axios');
 const serverBaseUrl = inject('serverBaseUrl');
 const apiPort = inject('apiPort');
+const socket = inject('socket');
 
 const removeItemFromOrder = (item) => {
 	orderStore.order.splice(item,1);
@@ -44,6 +45,7 @@ const createOrder = () => {
 	axios.post(serverBaseUrl + apiPort + '/api/orders', newOrder)
 		.then(() => {
 			console.log('Order created successfully');
+			socket.emit('newOrder', userStore.userId);
 		}).catch(() => {
 			console.log('Order failure');
 		});

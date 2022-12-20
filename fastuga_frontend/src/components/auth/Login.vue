@@ -5,7 +5,6 @@ import { useUserStore } from '../../stores/user.js';
 
 const router = useRouter();
 const toast = inject('toast');
-const axios = inject('axios');
 
 const credentials = ref({
 	username: '',

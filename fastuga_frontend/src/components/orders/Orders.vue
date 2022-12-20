@@ -1,18 +1,16 @@
 <script setup>
-import { useRouter } from 'vue-router';
 import { inject, onMounted, ref } from 'vue';
 
-const router = useRouter();
 const axios = inject('axios');
-const serverBaseUrl = inject('serverBaseUrl');
-const apiPort = inject('apiPort');
+const socket = inject('socket');
 
 const orders = ref([]);
 
 const loadOrders = () => {
 	axios.get('orders')
 		.then((response) => {
-			orders.value = response.data.data;
+			orders.value = response.data;
+			console.log(orders.value);
 		})
 		.catch((error) => {
 			console.log(error);
@@ -20,6 +18,10 @@ const loadOrders = () => {
 };
 
 onMounted(() => {
+	loadOrders();
+});
+
+socket.on('updateOrders', () => {
 	loadOrders();
 });
 </script>

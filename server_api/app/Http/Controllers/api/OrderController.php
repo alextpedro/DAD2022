@@ -36,7 +36,6 @@ class OrderController extends Controller
     {
         $request->validate([
             'ticket_number'=>'required|numeric',
-		    'status'=>'required|in:"p", "r", "d", "c"',
             'customer_id'=>'required|numeric',
             'total_price'=>'required|numeric',
 		    'total_paid'=>'required|numeric',
@@ -45,12 +44,11 @@ class OrderController extends Controller
 		    'points_used_to_pay'=>'required|numeric',
 		    'payment_type'=>'required|in:"visa", "paypal", "mbway"',
 		    'payment_reference'=>'required|string|max:255',
-		    'date'=>'required|date',
         ]);
  
         $order = new Order([
             'ticket_number'=>$request->input('ticket_number'),
-            'status'=>'p',
+            'status'=>'r',
             'customer_id'=>$request->input('customer_id'),
             'total_price'=>$request->input('total_price'),
 		    'total_paid'=>$request->input('total_paid'),
