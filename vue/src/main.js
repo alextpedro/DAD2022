@@ -11,26 +11,23 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap';
 
-const serverBaseUrl = 'http://127.0.0.1'; 
-const socketUrl = 'http://192.168.56.56';
-const apiPort = ':8000';
-const socketPort = ':8080';
+const serverBaseUrl = import.meta.env.VITE_API_DOMAIN;
+const socketUrl = import.meta.env.VITE_WS_CONNECTION;
 
 const app = createApp(App);
 const pinia = createPinia();
 
 
 app.provide('serverBaseUrl', serverBaseUrl);
-app.provide('apiPort', apiPort);
 app.provide('axios', axios.create({
-	baseURL: serverBaseUrl + apiPort + '/api',
+	baseURL: serverBaseUrl + '/api',
 	headers: {
 		'Access-Control-Allow-Origin': '*',
 		'Content-type': 'application/json',
 	},
 }));
 
-app.provide('socket', io(socketUrl + socketPort));
+app.provide('socket', io(socketUrl));
 
 
 app.use(Toaster, {

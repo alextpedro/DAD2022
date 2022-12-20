@@ -4,12 +4,14 @@ import { inject, onMounted, ref } from 'vue';
 const axios = inject('axios');
 const socket = inject('socket');
 
-const orders = ref([]);
+const orders = ref(null);
 
 const loadOrders = () => {
 	axios.get('orders')
 		.then((response) => {
-			orders.value = response.data;
+			if (Object.keys(response.data).length !== 0 ) {
+				orders.value = response.data;
+			}
 		})
 		.catch((error) => {
 			console.log(error);

@@ -5,7 +5,6 @@ import avatarNoneUrl from '@/assets/avatar-none.png';
 export const useUserStore = defineStore('user', () => {
 	const axios = inject('axios');
 	const serverBaseUrl = inject('serverBaseUrl');
-	const apiPort = inject('apiPort');
 	const socket = inject('socket');
 
 	const user = ref(null);
@@ -14,7 +13,7 @@ export const useUserStore = defineStore('user', () => {
 		if (!user.value?.photo_url) {
 			return avatarNoneUrl;
 		}
-		return serverBaseUrl + apiPort + '/storage/fotos/' + user.value.photo_url;
+		return serverBaseUrl + '/storage/fotos/' + user.value.photo_url;
 	});
 
 	const userId = computed(() => {

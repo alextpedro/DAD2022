@@ -2,7 +2,7 @@ const httpServer = require('http').createServer();
 const io = require('socket.io')(httpServer, {
 	cors: {
 		// The origin is the same as the Vue app domain. Change if necessary
-		origin: '192.168.56.56:5173/',
+		origin: '*',
 		methods: ['GET', 'POST'],
 		credentials: true
 	}

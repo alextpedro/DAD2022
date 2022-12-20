@@ -7,7 +7,6 @@ import { useUserStore } from '@/stores/user.js';
 const router = useRouter();
 const axios = inject('axios');
 const serverBaseUrl = inject('serverBaseUrl');
-const apiPort = inject('apiPort');
 
 const UserStore = useUserStore();
 const editUser = UserStore.user;
@@ -44,7 +43,7 @@ const handleFileUpload = (event) => {
 };
 
 const saveUser = (id) => {
-	axios.put('api/users/{user}', id)
+	axios.put('/users/{user}', id)
 		.then((response) => {
 			users.value = response.data.data;
 		})
@@ -73,7 +72,7 @@ onMounted(() => {
 	<form class="row g-3 needs-validation" novalidate @submit.prevent="save" enctype="multipart/form-data">
 		<div class="form-group">
 			<img v-if="boolFileUploaded" :src="uploadedFileUrl" width="150" height="150" />
-			<img v-else-if="editUser" :src="serverBaseUrl + apiPort + '/storage/fotos/' + uploadedFileUrl"
+			<img v-else-if="editUser" :src="serverBaseUrl + '/storage/fotos/' + uploadedFileUrl"
 				width="150" height="150" />
 			<img v-else src="https://via.placeholder.com/150" />
 			<input type="file" id="inputImg" accept="image/*" @change="handleFileUpload($event)" />

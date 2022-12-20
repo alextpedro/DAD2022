@@ -7,7 +7,6 @@ import { useProductStore } from '@/stores/product.js';
 const router = useRouter();
 const axios = inject('axios');
 const serverBaseUrl = inject('serverBaseUrl');
-const apiPort = inject('apiPort');
 
 const orderStore = useOrderStore();
 const productStore = useProductStore();
@@ -61,7 +60,7 @@ onMounted(() => {
 					<button type="button" class="btn btn-outline-secondary" @click="editItem(item)"><span class="bi bi-pencil-square"></span></button>
 				</td>
 				<td>
-					<img :src="serverBaseUrl + apiPort + '/storage/products/' + item.photo_url" width="64" height="64" />
+					<img :src="serverBaseUrl + '/storage/products/' + item.photo_url" width="64" height="64" />
 				</td>
 				<td>
 					<span>{{ item.name }}</span>

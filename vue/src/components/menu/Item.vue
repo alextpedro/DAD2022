@@ -6,7 +6,6 @@ import { useProductStore } from '@/stores/product.js';
 const axios = inject('axios');
 const router = useRouter();
 const serverBaseUrl = inject('serverBaseUrl');
-const apiPort = inject('apiPort');
 
 const productStore = useProductStore();
 const editProduct = productStore.product;
@@ -99,7 +98,7 @@ onMounted(() => {
 	<form class="row g-3 needs-validation" novalidate @submit.prevent="save" enctype="multipart/form-data">
 		<div class="form-group">
 			<img v-if="boolFileUploaded" :src="uploadedFileUrl" width="150" height="150"/>
-			<img v-else-if="editProduct" :src="serverBaseUrl + apiPort + '/storage/products/' + uploadedFileUrl" width="150" height="150"/>
+			<img v-else-if="editProduct" :src="serverBaseUrl + '/storage/products/' + uploadedFileUrl" width="150" height="150"/>
 			<img v-else src="https://via.placeholder.com/150" />
 			<input type="file" id="inputImg" accept="image/*" @change="handleFileUpload($event)" />
 		</div>

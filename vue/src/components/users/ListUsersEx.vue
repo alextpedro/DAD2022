@@ -7,7 +7,6 @@ import { useUserStore } from '@/stores/user.js';
 const router = useRouter();
 const axios = inject('axios');
 const serverBaseUrl = inject('serverBaseUrl');
-const apiPort = inject('apiPort');
 
 const userStore = useUserStore();
 
@@ -61,7 +60,7 @@ onMounted(() => {
         <tbody>
             <tr v-for="user in users" :key="user.id">
                 <td class="align-middle">
-                    <img :src="serverBaseUrl + apiPort + '/storage/fotos/' + user.photo_url" width="64" height="64" />
+                    <img :src="serverBaseUrl + '/storage/fotos/' + user.photo_url" width="64" height="64" />
                 </td>
                 <td class="align-middle">
                     <span>{{ user.name }}</span>

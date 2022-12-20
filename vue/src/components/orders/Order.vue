@@ -7,7 +7,6 @@ const orderStore = useOrderStore();
 const userStore = useUserStore();
 const axios = inject('axios');
 const serverBaseUrl = inject('serverBaseUrl');
-const apiPort = inject('apiPort');
 const socket = inject('socket');
 
 const removeItemFromOrder = (item) => {
@@ -42,7 +41,7 @@ const createOrder = () => {
 		'payment_type': 'visa',
 		'payment_reference': '4283456893323321',
 	};
-	axios.post(serverBaseUrl + apiPort + '/api/orders', newOrder)
+	axios.post(serverBaseUrl + '/api/orders', newOrder)
 		.then(() => {
 			console.log('Order created successfully');
 			socket.emit('newOrder', userStore.userId);
@@ -66,7 +65,7 @@ const createOrder = () => {
 		<tbody>
 			<tr v-for="item in orderStore.order" :key="item.id">
 				<td>
-					<img :src="serverBaseUrl + apiPort + '/storage/products/' + item.photo_url" width="64" height="64" />
+					<img :src="serverBaseUrl + '/storage/products/' + item.photo_url" width="64" height="64" />
 				</td>
 				<td>
 					<span>{{ item.name }}</span>
