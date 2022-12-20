@@ -10,7 +10,6 @@ const loadOrders = () => {
 	axios.get('orders')
 		.then((response) => {
 			orders.value = response.data;
-			console.log(orders.value);
 		})
 		.catch((error) => {
 			console.log(error);
