@@ -141,6 +141,14 @@ const logout = async () => {
 								Chefs Hot Dishes
 							</router-link>
 						</li>
+
+						<li class="nav-item" v-if="userStore.user">
+							<router-link class="nav-link" :class="{ active: $route.name === 'MyOrders' }"
+								:to="{ name: 'MyOrders' }" @click="clickMenuOption">
+								<i class="bi bi-list-stars"></i>
+								My Orders
+							</router-link>
+						</li>
 					</ul>
 
 					<!-- Dropdown Nav Bar -->

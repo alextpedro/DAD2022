@@ -6,7 +6,7 @@ import Order from '@/components/orders/Order.vue';
 import Orders from '@/components/orders/Orders.vue';
 import Item from '@/components/menu/Item.vue';
 import Chefs from '@/components/employees/Chefs.vue';
-
+import MyOrders from '@/components/orders/MyOrders.vue';
 import EditUser from '@/components/users/EditUser.vue';
 import ListUsers from '@/components/users/ListUsersEx.vue';
 import PlataformStatisticsEx from '@/components/statistics/PlataformStatisticsEx.vue';
@@ -39,6 +39,11 @@ const routes = [
 		path: '/order',
 		name: 'Order',
 		component: Order,
+	},
+	{
+		path: '/myorders',
+		name: 'MyOrders',
+		component: MyOrders,
 	},
 	{
 		path: '/listusers',

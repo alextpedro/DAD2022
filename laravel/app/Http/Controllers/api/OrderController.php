@@ -12,8 +12,9 @@ use Carbon\Carbon;
 
 class OrderController extends Controller
 {
-    public function getOrdersOfUser(User $user) {
-        return $user->orders;
+    public function getOrdersOfUser($userId) {
+        $orders = Order::where('customer_id', $userId)->get();
+        return $orders;
     }
 
     public function getItemsOfOrder (Order $order) {

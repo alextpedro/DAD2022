@@ -39,8 +39,8 @@ Route::middleware('auth:api')->group(function () {
         // ->middleware('can:destroy,user');
     
 
-    Route::get('users/{user}/orders', [OrderController::class, 'getOrdersOfUser']);
-    Route::get('orders/{order}', [OrderController::class, 'getItemsOfOrder']);
+    // Route::get('users/{user}/orders', [OrderController::class, 'getOrdersOfUser']);
+    Route::get('orders/{id}', [OrderController::class, 'getOrdersOfUser']);
     Route::post('orders', [OrderController::class, 'store']);
 
     Route::post('products', [ProductController::class, 'store']);

@@ -66,7 +66,7 @@ class UserController extends Controller
             'type' => 'required|in:C,EC,ED,EM', 
             'name' => 'required|string|min:3|regex:/^[A-Za-záàâãéèêíóôõúçÁÀÂÃÉÈÍÓÔÕÚÇ ]+$/',
             'email' => 'required|email',
-            'password' => 'nullable|min:3|confirmed',
+            'password' => 'nullable|min:3', //Re-add confirmed at a later date.
             'photo_url' => 'nullable|string|max:255',
          ]);
 
