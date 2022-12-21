@@ -42,13 +42,14 @@ const routes = [
 	},
 	{
 		path: '/listusers',
-		name: 'listusers',
+		name: 'ListUsers',
 		component: ListUsers
 	},
 	{
-		path: '/editUser',
+		path: '/editUser/:id',
 		name: 'EditUser',
-		component: EditUser
+		component: EditUser,
+		props: route => ({ id: parseInt(route.params.id) })
 	},
 	{
 		path: '/plataformstatistics',
@@ -94,8 +95,8 @@ router.beforeEach(async (to, from, next) => {
 		}
 	}
 	if (to.name == 'EditUser') {
-		if ((userStore.user.type != 'EM')) {
-			next({ name: 'Home' });
+		if ((userStore.user.type == 'A') || (userStore.user.id == to.params.id)) {
+			next();
 			return;
 		}
 	}

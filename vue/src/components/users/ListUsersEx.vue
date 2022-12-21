@@ -1,7 +1,7 @@
 <!-- eslint-disable indent -->
 <script setup>
 import { useRouter } from 'vue-router';
-import { inject, onMounted, ref } from 'vue';
+import { inject, onMounted, ref, computed } from 'vue';
 import { useUserStore } from '@/stores/user.js';
 
 const router = useRouter();
@@ -13,6 +13,10 @@ const userStore = useUserStore();
 const selectedUsers = ref([]);
 
 const users = ref([]);
+
+const showEditButton = (userId) => {
+  return userId == userStore.user?.id || userStore.user?.type === 'EM';
+};
 
 const loadUsers = () => {
 	axios.get('users')
@@ -26,14 +30,14 @@ const loadUsers = () => {
 
 const editUser = (user) => {
 	userStore.user = user;
-	router.push({name: 'EditUser'});
+	router.push({name: 'EditUser', params: { id: user.id }});
 };
 
 const deleteUser = () => {
     console.log();
     axios.delete('/users/delete/' + editUser.id).then(() => {
         console.log('SUCCESS!!');
-        router.push({ name: 'Users' });
+        router.push({ name: 'ListUsers' });
     }).catch(() => {
         console.log('FAILURE!!');
     });
@@ -41,7 +45,6 @@ const deleteUser = () => {
 
 onMounted(() => {
 	loadUsers();
-    userStore.user = null;
 });
 </script>
 
@@ -76,23 +79,23 @@ onMounted(() => {
                     </span>
                 </td>
                 <td class="align-middle">
-                    <button class="btn btn-sm btn-danger" v-on:click.prevent="deleteUser(user.id)">
+                    <button class="btn btn-sm btn-danger" v-on:click.prevent="deleteUser(user.id)" v-if="userStore.user?.type === 'EM'">
                         Delete
                     </button>
-                    <button type="button" class="btn btn-info" @click="editUser(user)"><span class="bi-pencil-square"></span></button></td>
+                    <button type="button" class="btn btn-info" @click="editUser(user)" v-if="showEditButton(user.id)"><span class="bi-pencil-square"></span></button></td>
             </tr>
         </tbody>
     </table>
 
     <div class="btn-group float-end" role="group">
         <!-- Botão para CANCELAR -->
-        <button type="button" class="btn btn-secondary">
-            <router-link class="nav-link" :to="{ name: 'listusers' }">
+        <!-- <button type="button" class="btn btn-secondary">
+            <router-link class="nav-link" :to="{ name: 'Home' }">
                 Cancel
             </router-link>
-        </button>
+        </button> -->
         <!--For managers-->
-        <button type="button" class="btn btn-info">
+        <button type="button" class="btn btn-info" v-if="userStore.user?.type === 'EM'">
             <router-link class="nav-link" :to="{ name: 'Home' }">
                 Add User
             </router-link>

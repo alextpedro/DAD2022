@@ -3,6 +3,7 @@ import { useRouter } from 'vue-router';
 import { inject, onMounted, ref } from 'vue';
 import { useOrderStore } from '@/stores/order.js';
 import { useProductStore } from '@/stores/product.js';
+import { useUserStore } from '@/stores/user.js';
 
 const router = useRouter();
 const axios = inject('axios');
@@ -10,6 +11,7 @@ const serverBaseUrl = inject('serverBaseUrl');
 
 const orderStore = useOrderStore();
 const productStore = useProductStore();
+const userStore = useUserStore();
 
 const items = ref([]);
 
@@ -45,7 +47,7 @@ onMounted(() => {
 	<table class="table">
 		<thead>
 			<tr>
-				<th></th>
+				<th v-if="userStore.user?.type === 'EM'"></th>
 				<th>Photo</th>
 				<th>Name</th>
 				<th>Type</th>
@@ -56,7 +58,7 @@ onMounted(() => {
 		</thead>
 		<tbody>
 			<tr v-for="item in items" :key="item.id">
-				<td>
+				<td v-if="userStore.user?.type === 'EM'">
 					<button type="button" class="btn btn-outline-secondary" @click="editItem(item)"><span class="bi bi-pencil-square"></span></button>
 				</td>
 				<td>
@@ -97,7 +99,7 @@ onMounted(() => {
 	</div>
 
 	<!--For managers-->
-	<div class="btn-group float-start" role="group">
+	<div class="btn-group float-start" role="group" v-if="userStore.user?.type === 'EM'">
 		<button type="button" class="btn btn-info">
 			<router-link class="nav-link" :to="{ name: 'EditItem' }">
 				New Item

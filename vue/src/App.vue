@@ -28,8 +28,10 @@ const logout = async () => {
 </script>
 
 <template>
+	<!-- Upper nav bar -->
 	<nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top flex-md-nowrap p-0 shadow">
 		<div class="container-fluid">
+			<!-- App name -->
 			<router-link class="navbar-brand col-md-3 col-lg-2 me-0 px-3" :to="{ name: 'Home' }" @click="clickMenuOption">
 				<img src="@/assets/logo.svg" alt="" width="30" height="24" class="d-inline-block align-text-top" />
 				FasTuga
@@ -42,13 +44,13 @@ const logout = async () => {
 
 			<div class="collapse navbar-collapse justify-content-end">
 				<ul class="navbar-nav">
-					<li class="nav-item" v-show="!userStore.user">
+					<li class="nav-item" v-if="!userStore.user">
 						<router-link class="nav-link pr-3" to="/register" @click="clickMenuOption">
 							<i class="bi bi-person-check-fill"></i>
 							Register
 						</router-link>
 					</li>
-					<li class="nav-item" v-show="!userStore.user">
+					<li class="nav-item" v-if="!userStore.user">
 						<router-link class="nav-link" :class="{ active: $route.name === 'Login' }"
 							:to="{ name: 'Login' }" @click="clickMenuOption">
 							<i class="bi bi-box-arrow-in-right"></i>
@@ -67,8 +69,11 @@ const logout = async () => {
 						<ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end"
 							aria-labelledby="navbarDropdownMenuLink">
 							<li>
-								<router-link class="dropdown-item" :class="{ active: $route.name == 'User'}"
-									:to="{ name: 'EditUser' }" @click="clickMenuOption">
+								<router-link class="dropdown-item" 
+									:class="{ active: $route.name == 'User'}"
+									v-if="userStore.user"
+									:to="{ name: 'EditUser', params: { id: userStore.user?.id } }" 
+									@click="clickMenuOption">
 									<i class="bi bi-person-square"></i>
 									Profile
 								</router-link>
@@ -110,8 +115,7 @@ const logout = async () => {
 						</li>
 						
 						<li class="nav-item">
-							<!-- <router-link class="nav-link bi bi-person" to="/register">Register</router-link> -->
-							<router-link class="nav-link" :class="{ active: $route.name === 'listusers' }" :to="{ name: 'listusers' }" @click="clickMenuOption">
+							<router-link class="nav-link" :class="{ active: $route.name === 'ListUsers' }" :to="{ name: 'ListUsers' }" @click="clickMenuOption">
 								<i class="bi bi-person"></i>
 								Users
 							</router-link>
@@ -139,18 +143,19 @@ const logout = async () => {
 						</li>
 					</ul>
 
+					<!-- Dropdown Nav Bar -->
 					<div class="d-block d-md-none">
 						<h6
 							class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
 							<span>User</span>
 						</h6>
 						<ul class="nav flex-column mb-2">
-							<li class="nav-item">
+							<li class="nav-item" v-if="!userStore.user">
 								<a class="nav-link" href="#"><i class="bi bi-person-check-fill"></i>
 									Register
 								</a>
 							</li>
-							<li class="nav-item">
+							<li class="nav-item" v-if="!userStore.user">
 								<router-link class="nav-link" :class="{ active: $route.name === 'Login' }"
 									:to="{ name: 'Login' }" @click="clickMenuOption">
 									<i class="bi bi-box-arrow-in-right"></i>
@@ -160,14 +165,17 @@ const logout = async () => {
 							<li class="nav-item dropdown">
 								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" role="button"
 									data-bs-toggle="dropdown" aria-expanded="false">
-									<img src="@/assets/avatar-exemplo-1.jpg" class="rounded-circle z-depth-0 avatar-img"
+									<img :src="userStore.userPhotoUrl" class="rounded-circle z-depth-0 avatar-img"
 										alt="avatar image" />
-									<span class="avatar-text">User Name</span>
+									<span class="avatar-text">{{ userStore.user?.name ?? "Anonymous" }}</span>
 								</a>
 								<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
 									<li>
-										<router-link class="dropdown-item" :class="{ active: $route.name == 'User'}"
-											:to="{ name: 'EditUser' }" @click="clickMenuOption">
+										<router-link class="dropdown-item" 
+											:class="{ active: $route.name == 'User'}"
+											v-if="userStore.user"
+											:to="{ name: 'EditUser', params: { id: userStore.user?.id } }" 
+											@click="clickMenuOption">
 											<i class="bi bi-person-square"></i>
 											Profile
 										</router-link>

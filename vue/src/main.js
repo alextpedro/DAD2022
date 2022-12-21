@@ -4,6 +4,8 @@ import axios from 'axios';
 import Toaster from '@meforma/vue-toaster';
 import { io } from 'socket.io-client';
 
+import FieldErrorMessage from './components/global/FieldErrorMessage.vue';
+
 import App from './App.vue';
 import router from './router'; //go to this file to define routes
 
@@ -39,5 +41,7 @@ app.use(Toaster, {
 
 app.use(router);
 app.use(pinia);
+
+app.component('FieldErrorMessage', FieldErrorMessage);
 
 app.mount('#app');
