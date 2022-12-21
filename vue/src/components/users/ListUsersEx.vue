@@ -34,8 +34,7 @@ const editUser = (user) => {
 };
 
 const deleteUser = () => {
-    console.log();
-    axios.delete('/users/delete/' + editUser.id).then(() => {
+    axios.delete('/users' + editUser.id).then(() => {
         console.log('SUCCESS!!');
         router.push({ name: 'ListUsers' });
     }).catch(() => {

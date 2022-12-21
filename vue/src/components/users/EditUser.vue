@@ -6,6 +6,8 @@ import { useUserStore } from '@/stores/user.js';
 const router = useRouter();
 const axios = inject('axios');
 const serverBaseUrl = inject('serverBaseUrl');
+const socket = inject('socket');
+const toast = inject('toast');
 
 const userStore = useUserStore();
 
@@ -28,30 +30,15 @@ const newUser = () => {
 };
 
 const user = ref(newUser());
+const errors = ref(null);
 
 let uploadedFile = null;
 const uploadedFileUrl = ref();
-const inputName = ref();
-const inputType = ref();
-const inputEmail = ref();
-const inputPassword = ref();
-const inputNif = ref();
 
 let boolFileUploaded = ref(false);
 
-const selectedUsers = ref([]);
-
-const users = ref([]);
 
 const loadUser = (id) => {
-	// if (editUser) {
-	// 	uploadedFileUrl.value = editUser.photo_url;
-	// 	inputName.value = editUser.name;
-	// 	inputType.value = editUser.type;
-	// 	inputPassword.value = editUser.password;
-	// 	inputEmail.value = editUser.email;
-	// 	//inputNif.value = editUser.nif;
-	// }
 	axios.get('users/' + id)
 		.then((response) => {
 			user.value = response.data.data;
@@ -68,23 +55,23 @@ const handleFileUpload = (event) => {
 };
 
 const saveUser = (id) => {
-	// axios.put('/users/{user}', id)
-	// 	.then((response) => {
-	// 		// user.value = response.data.data;
-	// 	})
-	// 	.catch((err) => {
-	// 		console.log(err.response.data);
-	// 	});
-};
-
-const deleteUser = () => {
-	console.log();
-	axios.delete('/users/delete/' + props.id).then(() => {
-		console.log('SUCCESS!!');
-		router.push({ name: 'listusers' });
-	}).catch(() => {
-		console.log('FAILURE!!');
-	});
+	axios.put('users/' + props.id, user.value)
+		.then(() => {
+			socket.emit('updateUser', user.value);
+			if (user.value.id == userStore.user.id) {
+				userStore.user = user.value; 
+			}
+			toast.success('User #' + user.value.id + ' was updated successfully.');
+			router.back();
+		})
+		.catch((error) => {
+			if (error.response.status == 422) {
+				toast.error('User #' + props.id + ' was not updated due to validation errors!');
+				errors.value = error.response.data.errors;
+			} else {
+				toast.error('User #' + props.id + ' was not updated due to unknown server error!');
+			}
+		});
 };
 
 watch(

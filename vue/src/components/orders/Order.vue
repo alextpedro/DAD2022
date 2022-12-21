@@ -1,4 +1,5 @@
 <script setup>
+import { useRouter } from 'vue-router';
 import { useOrderStore } from '@/stores/order.js';
 import { useUserStore } from '@/stores/user.js';
 import { inject } from 'vue';
@@ -8,6 +9,8 @@ const userStore = useUserStore();
 const axios = inject('axios');
 const serverBaseUrl = inject('serverBaseUrl');
 const socket = inject('socket');
+const router = useRouter();
+const toast = inject('toast');
 
 const removeItemFromOrder = (item) => {
 	orderStore.order.splice(item,1);
@@ -21,10 +24,11 @@ const checkout = () => {
 			'value': 34.01
 		})
 		.then(() => {
+			toast.success('Payment success!');
 			createOrder();
 		})
 		.catch(() => {
-			console.log('Payment failure');
+			toast.error('Payment failure');
 		});
 };
 
@@ -43,10 +47,11 @@ const createOrder = () => {
 	};
 	axios.post(serverBaseUrl + '/api/orders', newOrder)
 		.then(() => {
-			console.log('Order created successfully');
+			toast.success('Order created successfully');
 			socket.emit('newOrder', userStore.userId);
+			router.push({name : 'Home'});
 		}).catch(() => {
-			console.log('Order failure');
+			toast.error('Order failure');
 		});
 };
 </script>

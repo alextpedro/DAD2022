@@ -36,7 +36,7 @@ const routes = [
 		component: Menu
 	},
 	{
-		path: '/order/',
+		path: '/order',
 		name: 'Order',
 		component: Order,
 	},

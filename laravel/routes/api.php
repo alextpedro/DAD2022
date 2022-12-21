@@ -29,14 +29,14 @@ Route::middleware('auth:api')->group(function () {
     Route::get('users/me', [UserController::class, 'show_me']);
 
     Route::get('users', [UserController::class, 'index']);
-    Route::get('users/{user}', [UserController::class, 'show'])
-        ->middleware('can:view,user');
-    Route::put('users/{user}', [UserController::class, 'update'])
-        ->middleware('can:update,user');
-    Route::patch('users/{user}/password', [UserController::class, 'update_password'])
-        ->middleware('can:updatePassword,user');
-        Route::delete('users/delete/{id}', [UserController::class, 'destroy'])
-        ->middleware('can:destroy,user');
+    Route::get('users/{user}', [UserController::class, 'show']);
+        // ->middleware('can:view,user');
+    Route::put('users/{user}', [UserController::class, 'update']);
+        // ->middleware('can:update,user');
+    Route::patch('users/{user}/password', [UserController::class, 'update_password']);
+        // ->middleware('can:updatePassword,user');
+    Route::delete('users/{id}', [UserController::class, 'destroy']);
+        // ->middleware('can:destroy,user');
     
 
     Route::get('users/{user}/orders', [OrderController::class, 'getOrdersOfUser']);
@@ -50,7 +50,6 @@ Route::middleware('auth:api')->group(function () {
 });
 
 Route::get('products', [ProductController::class, 'index']);
-Route::resource('users', UserController::class);
 
 Route::get('orders', [OrderController::class, 'getOrdersReady']);
 
