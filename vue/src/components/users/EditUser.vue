@@ -125,8 +125,15 @@ watch(
 		</div>
 
 		<div class="mb-3">
+			<label for="inputConfirmPassword" class="form-label">Confirm Password</label>
+			<input type="text" class="form-control" id="inputConfirmPassword" placeholder="*********" v-model="user.password_confirmation"
+				required>
+			<field-error-message fieldName="passwordConfirm"></field-error-message>
+		</div>
+
+		<div class="mb-3">
 			<label for="inputNif" class="form-label">NIF</label>
-			<input type="text" class="form-control" id="inputPassword" placeholder="123456789" v-model="user.nif"
+			<input type="text" class="form-control" id="inputNif" placeholder="123456789" v-model="user.nif"
 				required>
 			<field-error-message fieldName="nif"></field-error-message>
 		</div>
