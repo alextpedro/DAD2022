@@ -43,14 +43,14 @@ const logout = async () => {
 			<div class="collapse navbar-collapse justify-content-end">
 				<ul class="navbar-nav">
 					<li class="nav-item" v-show="!userStore.user">
-						<router-link class="nav-link pr-3" to="/register">
+						<router-link class="nav-link pr-3" to="/register" @click="clickMenuOption">
 							<i class="bi bi-person-check-fill"></i>
 							Register
 						</router-link>
 					</li>
 					<li class="nav-item" v-show="!userStore.user">
 						<router-link class="nav-link" :class="{ active: $route.name === 'Login' }"
-							:to="{ name: 'Login' }">
+							:to="{ name: 'Login' }" @click="clickMenuOption">
 							<i class="bi bi-box-arrow-in-right"></i>
 							Login
 						</router-link>
@@ -75,7 +75,7 @@ const logout = async () => {
 							</li>
 							<li>
 								<router-link class="dropdown-item" :class="{ active: $route.name === 'ChangePassword' }"
-									:to="{ name: 'Home' }">
+									:to="{ name: 'Home' }" @click="clickMenuOption">
 									<i class="bi bi-key-fill"></i>
 									Change password
 								</router-link>
@@ -84,7 +84,7 @@ const logout = async () => {
 								<hr class="dropdown-divider" />
 							</li>
 							<li>
-								<a class="dropdown-item" @click.prevent="logout">
+								<a class="dropdown-item" @click.prevent="logout" @click="clickMenuOption">
 									<i class="bi bi-arrow-right"></i>Logout
 								</a>
 							</li> 
@@ -103,7 +103,7 @@ const logout = async () => {
 					<ul class="nav flex-column">
 						<li class="nav-item">
 							<router-link class="nav-link" :class="{ active: $route.name === 'Menu' }"
-								:to="{ name: 'Menu' }">
+								:to="{ name: 'Menu' }" @click="clickMenuOption">
 								<i class="bi bi-book"></i>
 								Menu
 							</router-link>
@@ -111,7 +111,7 @@ const logout = async () => {
 						
 						<li class="nav-item">
 							<!-- <router-link class="nav-link bi bi-person" to="/register">Register</router-link> -->
-							<router-link class="nav-link" :class="{ active: $route.name === 'listusers' }" :to="{ name: 'listusers' }">
+							<router-link class="nav-link" :class="{ active: $route.name === 'listusers' }" :to="{ name: 'listusers' }" @click="clickMenuOption">
 								<i class="bi bi-person"></i>
 								Users
 							</router-link>
@@ -125,14 +125,14 @@ const logout = async () => {
 					</h6>
 					<ul class="nav flex-column mb-2">
 						<li class="nav-item" v-if="userStore.user?.type === 'EM'">
-							<router-link class="nav-link w-100 me-3" :to="{ name: 'Plataformstatistics'}" aria-label="See platform statistics.">
+							<router-link class="nav-link w-100 me-3" :to="{ name: 'Plataformstatistics'}" aria-label="See platform statistics." @click="clickMenuOption">
 								<i class="bi bi-bar-chart-line">Statistics</i>
 							</router-link>
 						</li>
 						
 						<li class="nav-item" v-if="userStore.user?.type === 'EC'">
 							<router-link class="nav-link" :class="{ active: $route.name === 'Chefs' }"
-								:to="{ name: 'Chefs' }" >
+								:to="{ name: 'Chefs' }" @click="clickMenuOption">
 								<i class="bi bi-list-stars"></i>
 								Chefs Hot Dishes
 							</router-link>
@@ -152,7 +152,7 @@ const logout = async () => {
 							</li>
 							<li class="nav-item">
 								<router-link class="nav-link" :class="{ active: $route.name === 'Login' }"
-									:to="{ name: 'Login' }">
+									:to="{ name: 'Login' }" @click="clickMenuOption">
 									<i class="bi bi-box-arrow-in-right"></i>
 									Login
 								</router-link>
@@ -174,7 +174,7 @@ const logout = async () => {
 									</li>
 									<li>
 										<router-link class="dropdown-item" :class="{ active: $route.name === 'ChangePassword' }"
-											:to="{ name: 'Home' }">
+											:to="{ name: 'Home' }" @click="clickMenuOption">
 											<i class="bi bi-key-fill"></i>
 											Change password
 										</router-link>
@@ -183,7 +183,7 @@ const logout = async () => {
 										<hr class="dropdown-divider" />
 									</li>
 									<li>
-										<a class="dropdown-item" @click.prevent="logout">
+										<a class="dropdown-item" @click.prevent="logout" @click="clickMenuOption">
 											<i class="bi bi-arrow-right"></i>Logout
 										</a>
 									</li>
