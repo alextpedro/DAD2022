@@ -2,7 +2,7 @@
 import { useRouter } from 'vue-router';
 import { useOrderStore } from '@/stores/order.js';
 import { useUserStore } from '@/stores/user.js';
-import { inject, ref } from 'vue';
+import { inject } from 'vue';
 
 const orderStore = useOrderStore();
 const userStore = useUserStore();
@@ -32,7 +32,17 @@ const checkout = () => {
 		});
 };
 
+
 const createOrder = () => {
+	const orderItems = JSON.stringify(orderStore.order);
+	console.log(orderItems);
+
+	for(let item in orderItems) {
+		if (item.type === 'hot dish') {
+			socket.emit('newHotDish');
+			return false;
+		}
+	}
 
 	const newOrder = {
 		'ticket_number': orderStore.getNextTicketN(),
@@ -44,7 +54,9 @@ const createOrder = () => {
 		'points_used_to_pay': '1',
 		'payment_type': 'visa',
 		'payment_reference': '4283456893323321',
+		'order_items': orderItems,
 	};
+
 	axios.post(serverBaseUrl + '/api/orders', newOrder)
 		.then(() => {
 			toast.success('Order created successfully');

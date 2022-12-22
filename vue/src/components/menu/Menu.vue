@@ -19,6 +19,7 @@ const selectedItems = ref([]);
 
 const submitOrder = () => {
 	orderStore.order = selectedItems.value;
+	console.log(selectedItems.value);
 	router.push('Order');
 };
 

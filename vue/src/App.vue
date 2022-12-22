@@ -1,11 +1,13 @@
 <script setup>
-import { ref, inject } from 'vue';
+import { ref, inject, onMounted } from 'vue';
 import { useRouter, RouterLink, RouterView } from 'vue-router';
 import { useUserStore } from './stores/user.js';
+import { useOrderStore } from '@/stores/order.js';
 
 const userStore = useUserStore();
 const router = useRouter();
 const toast = inject('toast');
+const orderStore = useOrderStore();
 
 const buttonSidebarExpand = ref(null);
 
@@ -24,6 +26,10 @@ const logout = async () => {
 		toast.error('There was a problem logging out of the application!');
 	}
 };
+
+onMounted(() => {
+	orderStore.initTickets();
+});
 
 </script>
 
@@ -135,10 +141,18 @@ const logout = async () => {
 						</li>
 						
 						<li class="nav-item" v-if="userStore.user?.type === 'EC'">
+							<router-link class="nav-link" :class="{ active: $route.name === 'Dishes' }"
+								:to="{ name: 'Dishes' }" @click="clickMenuOption">
+								<i class="bi bi-list-stars"></i>
+								Available Dishes
+							</router-link>
+						</li>
+
+						<li class="nav-item" v-if="userStore.user?.type === 'EC'">
 							<router-link class="nav-link" :class="{ active: $route.name === 'Chefs' }"
 								:to="{ name: 'Chefs' }" @click="clickMenuOption">
 								<i class="bi bi-list-stars"></i>
-								Chefs Hot Dishes
+								My Dishes
 							</router-link>
 						</li>
 
@@ -147,6 +161,14 @@ const logout = async () => {
 								:to="{ name: 'MyOrders' }" @click="clickMenuOption">
 								<i class="bi bi-list-stars"></i>
 								My Orders
+							</router-link>
+						</li>
+
+						<li class="nav-item" v-if="userStore.user?.type === 'EC'">
+							<router-link class="nav-link" :class="{ active: $route.name === 'AllDishes' }"
+								:to="{ name: 'AllDishes' }" @click="clickMenuOption">
+								<i class="bi bi-list-stars"></i>
+								Dish History
 							</router-link>
 						</li>
 					</ul>

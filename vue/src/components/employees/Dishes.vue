@@ -2,22 +2,15 @@
 import { inject, onMounted, ref } from 'vue';
 import { useUserStore } from '@/stores/user.js';
 
-const userStore = useUserStore();
-const axios = inject('axios');
 const socket = inject('socket');
+const axios = inject('axios');
+const userStore = useUserStore();
 
 const dishes = ref(null);
 
-const declareReady = () => {
-	axios.put('declareReady/' + userStore.user.id)
-		.then(() => {
-			socket.emit('ready_dish', {});
-		});
-	
-};
-
 const loadDishes = () => {
-	axios.get('dishes/' + userStore.user.id)
+	//ask server for order items that aren't ready
+	axios.get('need_prep')
 		.then((response) => {
 			if (Object.keys(response.data).length !== 0 ) {
 				dishes.value = response.data;
@@ -28,18 +21,24 @@ const loadDishes = () => {
 		});
 };
 
+const claimDish = (id) => {
+	axios.put('claim_dish/' + userStore.user.id, {'id': id})
+		.then(() => {
+			socket.emit('dishClaimed');
+		});
+};
 
 onMounted(() => {
 	loadDishes();
 });
 
-socket.on('ready_dish', () => {
+socket.on('updateDishes', () => {
 	loadDishes();
 });
 </script>
 
 <template>
-    <h1>My Dishes</h1>
+    <h1>Unclaimed Dishes</h1>
 	<table class="table" v-if="dishes">
 		<thead>
 			<th>
@@ -63,9 +62,9 @@ socket.on('ready_dish', () => {
                 <td>
 					<span>{{ dish.notes }}</span>
 				</td>
-                <button type="button" class="btn btn-primary" @click="declareReady(dish.id)">Ready!</button>
+                <button type="button" class="btn btn-primary" @click="claimDish(dish.id)">Claim</button>
             </tr>
 		</tbody>
 	</table>
-    <div v-else>You have no dishes at the moment.</div>
+    <div v-else>There are no dishes needing preparation at the moment.</div>
 </template>

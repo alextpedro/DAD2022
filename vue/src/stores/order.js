@@ -1,20 +1,26 @@
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { inject, ref } from 'vue';
 
 export const useOrderStore = defineStore('order', () => {
+	const axios = inject('axios');
 	const order = ref(null);
 	const ticketNumber = ref(1);
 
 	const getNextTicketN = () => {
+		ticketNumber.value += 1;
 		if (ticketNumber.value === 99) {
 			ticketNumber.value = 1;
-		}
-		else {
-			ticketNumber.value++;
 		}
 
 		return ticketNumber.value;
 	};
 
-	return { order,  getNextTicketN};
+	const initTickets = async () => {
+		await axios.get('currentTickets')
+			.then((response) => {
+				ticketNumber.value = response.data;
+			});
+	};
+
+	return { order, getNextTicketN, initTickets };
 });

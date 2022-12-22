@@ -7,6 +7,7 @@ use App\Http\Controllers\api\OrderController;
 use App\Http\Controllers\api\ProductController;
 use App\Http\Controllers\api\AuthController;
 use App\Http\Controllers\api\UserController;
+use App\Http\Controllers\api\OrderItemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,12 @@ Route::middleware('auth:api')->group(function () {
     Route::get('orders/{id}', [OrderController::class, 'getOrdersOfUser']);
     Route::post('orders', [OrderController::class, 'store']);
 
+    Route::get('need_prep', [OrderItemController::class, 'getNeedPrep']);
+    Route::get('dishes/{id}', [OrderItemController::class, 'getDishesFromChef']);
+    Route::get('all_dishes/{id}', [OrderItemController::class, 'getAllDishesFromChef']);
+    Route::put('claim_dish/{id}', [OrderItemController::class, 'claimDish']);
+    Route::put('declareReady/{id}', [OrderItemController::class, 'declareReady']);
+
     Route::post('products', [ProductController::class, 'store']);
     Route::put('products/{id}', [ProductController::class, 'update']);
     Route::delete('products/{id}', [ProductController::class, 'destroy']);
@@ -52,4 +59,5 @@ Route::middleware('auth:api')->group(function () {
 Route::get('products', [ProductController::class, 'index']);
 
 Route::get('orders', [OrderController::class, 'getOrdersReady']);
+Route::get('currentTickets', [OrderController::class, 'getCurrentTickets']);
 

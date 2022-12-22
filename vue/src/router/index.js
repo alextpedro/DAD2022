@@ -10,6 +10,8 @@ import MyOrders from '@/components/orders/MyOrders.vue';
 import EditUser from '@/components/users/EditUser.vue';
 import ListUsers from '@/components/users/ListUsersEx.vue';
 import PlataformStatisticsEx from '@/components/statistics/PlataformStatisticsEx.vue';
+import Dishes from '@/components/employees/Dishes.vue';
+import AllDishes from '@/components/employees/AllDishes.vue';
 
 import { useUserStore } from '@/stores/user.js';
 
@@ -67,9 +69,19 @@ const routes = [
 		component: Item
 	},
 	{
-		path: '/chefs',
+		path: '/myDishes',
 		name: 'Chefs',
 		component: Chefs
+	},
+	{
+		path: '/allDishes',
+		name: 'AllDishes',
+		component: AllDishes,
+	},
+	{
+		path: '/availableDishes',
+		name: 'Dishes',
+		component: Dishes
 	},
 ];
 

@@ -41,4 +41,8 @@ io.on('connection', (socket) => {
 		socket.except(userId).emit('updateOrders');
 	});
 
+	socket.on('newHotDish', () => {
+		socket.emit('updateDishes');
+	});
+
 });
