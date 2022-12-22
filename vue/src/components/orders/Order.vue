@@ -2,7 +2,7 @@
 import { useRouter } from 'vue-router';
 import { useOrderStore } from '@/stores/order.js';
 import { useUserStore } from '@/stores/user.js';
-import { inject } from 'vue';
+import { inject, ref } from 'vue';
 
 const orderStore = useOrderStore();
 const userStore = useUserStore();
@@ -50,8 +50,8 @@ const createOrder = () => {
 			toast.success('Order created successfully');
 			socket.emit('newOrder', userStore.userId);
 			router.push({name : 'Home'});
-		}).catch(() => {
-			toast.error('Order failure');
+		}).catch((error) => {
+			console.log(error);
 		});
 };
 </script>
